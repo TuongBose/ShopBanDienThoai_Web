@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "DangNhap";
+    Layout = "~/Views/Share/_LayoutPage1.cshtml";
+}
+
+<h2>DangNhap</h2>
+
+@using (Html.BeginForm())
+{
+
+    @Html.ValidationSummary(true)
+    {
+        <div>
+            @Html.TextBox("UserName", "", new
+       {
+           @class = "form-control",
+           @placeholder = "Nhập Tên đăng nhập"
+       })   @ViewData["LoiUserName"]
+        </div>
+        <div>
+            @Html.TextBox("Pass", "", new
+       {
+           @class = "form-control",
+           @placeholder = "Nhập mật khẩu"
+       }) @ViewData["LoiPass"]
+        </div>
+    }
+    <button type="submit">Đăng Nhập</button>
+}
+    <a href="@Url.Action("DangKy","NguoiDung")">Chưa có tài khoản? Đăng ký</a>
