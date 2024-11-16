@@ -106,6 +106,36 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="images2\images\AcerAspire3.jpg" />
+    <Content Include="images2\images\airpods_pro.jpg" />
+    <Content Include="images2\images\Asus_Vivobook.jpg" />
+    <Content Include="images2\images\cu_sac_nhanh_20w.jpg" />
+    <Content Include="images2\images\Dell_Inspiron.jpg" />
+    <Content Include="images2\images\galaxy_buds_pro.jpg" />
+    <Content Include="images2\images\ipad_air_5.jpg" />
+    <Content Include="images2\images\ipad_gen_9.jpg" />
+    <Content Include="images2\images\ipad_mini_6.jpg" />
+    <Content Include="images2\images\ipad_pro_11.jpg" />
+    <Content Include="images2\images\ipad_pro_12.jpg" />
+    <Content Include="images2\images\ipad_pro_129.jpg" />
+    <Content Include="images2\images\iphone14.jpg" />
+    <Content Include="images2\images\Lenovo_Ideapad_Slim_3.jpg" />
+    <Content Include="images2\images\lenovo_tab_p11.jpg" />
+    <Content Include="images2\images\MacBook_Air_13_inch_M1.jpg" />
+    <Content Include="images2\images\magic_keyboard.jpg" />
+    <Content Include="images2\images\matepad_11.jpg" />
+    <Content Include="images2\images\oplung_iphone14.jpg" />
+    <Content Include="images2\images\oppo_reno6.jpg" />
+    <Content Include="images2\images\samsung_s23.jpg" />
+    <Content Include="images2\images\sim_viettel_4g.jpg" />
+    <Content Include="images2\images\sim_vinaphone_4g.jpg" />
+    <Content Include="images2\images\surface_go_3.jpg" />
+    <Content Include="images2\images\tab_s7.jpg" />
+    <Content Include="images2\images\thecao_mobifone_100k.jpg" />
+    <Content Include="images2\images\thecao_viettel_100k.jpg" />
+    <Content Include="images2\images\thecao_vinaphone_100k.jpg" />
+    <Content Include="images2\images\vivo_v21.jpg" />
+    <Content Include="images2\images\xiaomi_mi12.jpg" />
     <Content Include="Images\Icon\Bag.png" />
     <Content Include="Images\Icon\ipad.png" />
     <Content Include="Images\Icon\Laptop.png" />
@@ -125,7 +155,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DienThoaiController.cs" />
     <Compile Include="Controllers\NguoiDungController.cs" />
+    <Compile Include="Controllers\PhanLoaiSanPhamController.cs" />
     <Compile Include="Controllers\TrangChuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -174,6 +206,8 @@
     <Content Include="Views\TrangChu\TrangChu.cshtml" />
     <Content Include="Views\NguoiDung\DangNhap.cshtml" />
     <Content Include="Views\NguoiDung\DangKy.cshtml" />
+    <Content Include="Views\DienThoai\TatCaSanPham.cshtml" />
+    <Content Include="Views\PhanLoaiSanPham\SanPhamTheoLoai.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
