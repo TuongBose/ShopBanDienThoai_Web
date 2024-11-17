@@ -98,6 +98,7 @@ namespace DoAn_LTW.Controllers
                 User.PASS= pass;
                 User.EMAIL= email;
                 User.FULLNAME= fullname;
+                User.ROLENAME = false;
 
                 Models.ACCOUNT hasAccount = db.ACCOUNTs.FirstOrDefault(x=>x.USERNAME==User.USERNAME);
                 if (hasAccount == null)

@@ -1,18 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="WEBBANDIENTHOAI" Class="QLDTDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Table Name="dbo.ACCOUNT" Member="ACCOUNTs">
-    <Type Name="ACCOUNT">
-      <Column Name="USERID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="USERNAME" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="PASS" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="EMAIL" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="FULLNAME" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="DIACHI" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="SODIENTHOAI" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="ROLENAME" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="ACCOUNT_DonHang" Member="DonHangs" ThisKey="USERID" OtherKey="USERID" Type="DonHang" />
-      <Association Name="ACCOUNT_feedback" Member="feedbacks" ThisKey="USERID" OtherKey="USERID" Type="feedback" />
-    </Type>
-  </Table>
   <Table Name="dbo.ThuongHieu" Member="ThuongHieus">
     <Type Name="ThuongHieu">
       <Column Name="MaThuongHieu" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -47,8 +33,8 @@
       <Column Name="NoiDung" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="SoSao" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="MaSanPham" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="ACCOUNT_feedback" Member="ACCOUNT" ThisKey="USERID" OtherKey="USERID" Type="ACCOUNT" IsForeignKey="true" />
       <Association Name="SanPham_feedback" Member="SanPham" ThisKey="MaSanPham" OtherKey="MaSanPham" Type="SanPham" IsForeignKey="true" />
+      <Association Name="ACCOUNT_feedback" Member="ACCOUNT" ThisKey="USERID" OtherKey="USERID" Type="ACCOUNT" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.LoaiSanPham" Member="LoaiSanPhams">
@@ -72,6 +58,20 @@
       <Association Name="SanPham_feedback" Member="feedbacks" ThisKey="MaSanPham" OtherKey="MaSanPham" Type="feedback" />
       <Association Name="LoaiSanPham_SanPham" Member="LoaiSanPham" ThisKey="MaLoaiSanPham" OtherKey="MaLoaiSanPham" Type="LoaiSanPham" IsForeignKey="true" />
       <Association Name="ThuongHieu_SanPham" Member="ThuongHieu" ThisKey="MaThuongHieu" OtherKey="MaThuongHieu" Type="ThuongHieu" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ACCOUNT" Member="ACCOUNTs">
+    <Type Name="ACCOUNT">
+      <Column Name="USERID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="USERNAME" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PASS" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="EMAIL" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="FULLNAME" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="DIACHI" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="SODIENTHOAI" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="ROLENAME" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="ACCOUNT_DonHang" Member="DonHangs" ThisKey="USERID" OtherKey="USERID" Type="DonHang" />
+      <Association Name="ACCOUNT_feedback" Member="feedbacks" ThisKey="USERID" OtherKey="USERID" Type="feedback" />
     </Type>
   </Table>
 </Database>
