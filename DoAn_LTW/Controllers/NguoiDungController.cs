@@ -108,7 +108,7 @@ namespace DoAn_LTW.Controllers
                     return RedirectToAction("DangNhap", "NguoiDung");
                 }
                 else
-                    ViewData["HasAccount"] = "Đã có tài khoản UserName này";
+                    ViewBag.TB = "Đã có tài khoản UserName này";
 
                 return View();
             }
