@@ -208,6 +208,7 @@
     <Content Include="Views\NguoiDung\DangKy.cshtml" />
     <Content Include="Views\DienThoai\TatCaSanPham.cshtml" />
     <Content Include="Views\PhanLoaiSanPham\SanPhamTheoLoai.cshtml" />
+    <Content Include="Views\DienThoai\XemChiTiet.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

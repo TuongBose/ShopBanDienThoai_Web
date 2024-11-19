@@ -1,0 +1,65 @@
+﻿@model DoAn_LTW.Models.SanPham
+
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<div class="container">
+    <h2 class="text-center">CHI TIẾT SẢN PHẨM</h2>
+
+    <div class="row mb-4">
+        <!-- Product Image -->
+        <div class="col-md-4">
+            <img src="@Url.Content("~/images2/images/" + Model.HinhAnh)" class="img-fluid" alt="@Model.TenSanPham" />
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-md-8">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <td>@Model.TenSanPham</td>
+                </tr>
+                <tr>
+                    <th>Loại sản phẩm</th>
+                    <td>@Model.LoaiSanPham.TenLoaiSanPham</td>
+                </tr>
+                <tr>
+                    <th>Thương hiệu</th>
+                    <td>@Model.ThuongHieu.TenThuongHieu</td>
+                </tr>
+                <tr>
+                    <th>Mô tả</th>
+                    <td>@Model.MoTa</td>
+                </tr>
+                <tr>
+                    <th>Giá bán</th>
+                    <td><span style="color: red; font-weight: bold;">@String.Format("{0:#.000 VND}", Model.Gia)</span></td>
+                </tr>
+                <tr>
+                    <th>Số lượng tồn kho</th>
+                    <td>@Model.SoLuongTonKho</td>
+                </tr>
+            </table>
+
+            <div>
+                <!-- Button mua ngay -->
+                <a href="@Url.Action("MuaNgay", "DienThoai", new { msp = Model.MaSanPham })">
+                    <input type="submit" value="MUA NGAY" class="btn btn-primary" />
+                </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <!-- Button thêm vào giỏ hàng -->
+                <a href="@Url.Action("ThemGioHang", "GioHang", new { msp = Model.MaSanPham })">
+                    <input type="submit" value="THÊM VÀO GIỎ HÀNG" class="btn btn-success" />
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
