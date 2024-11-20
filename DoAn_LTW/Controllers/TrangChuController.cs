@@ -9,9 +9,12 @@ namespace DoAn_LTW.Controllers
     public class TrangChuController : Controller
     {
         // GET: TrangChu
+        Models.QLDTDataContext db =  new Models.QLDTDataContext();
+
         public ActionResult TrangChu()
         {
-            return View();
+            var danhSachSanPham = db.SanPhams.ToList();
+            return View(danhSachSanPham);
         }
     }
 }

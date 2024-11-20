@@ -30,6 +30,9 @@ namespace DoAn_LTW.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertACCOUNT(ACCOUNT instance);
+    partial void UpdateACCOUNT(ACCOUNT instance);
+    partial void DeleteACCOUNT(ACCOUNT instance);
     partial void InsertThuongHieu(ThuongHieu instance);
     partial void UpdateThuongHieu(ThuongHieu instance);
     partial void DeleteThuongHieu(ThuongHieu instance);
@@ -48,9 +51,6 @@ namespace DoAn_LTW.Models
     partial void InsertSanPham(SanPham instance);
     partial void UpdateSanPham(SanPham instance);
     partial void DeleteSanPham(SanPham instance);
-    partial void InsertACCOUNT(ACCOUNT instance);
-    partial void UpdateACCOUNT(ACCOUNT instance);
-    partial void DeleteACCOUNT(ACCOUNT instance);
     #endregion
 		
 		public QLDTDataContext():
@@ -81,6 +81,14 @@ namespace DoAn_LTW.Models
 				base(connection, mappingSource)
 		{
 			OnCreated();
+		}
+		
+		public System.Data.Linq.Table<ACCOUNT> ACCOUNTs
+		{
+			get
+			{
+				return this.GetTable<ACCOUNT>();
+			}
 		}
 		
 		public System.Data.Linq.Table<ThuongHieu> ThuongHieus
@@ -130,13 +138,291 @@ namespace DoAn_LTW.Models
 				return this.GetTable<SanPham>();
 			}
 		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ACCOUNT")]
+	public partial class ACCOUNT : INotifyPropertyChanging, INotifyPropertyChanged
+	{
 		
-		public System.Data.Linq.Table<ACCOUNT> ACCOUNTs
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _USERID;
+		
+		private string _USERNAME;
+		
+		private string _PASS;
+		
+		private string _EMAIL;
+		
+		private string _FULLNAME;
+		
+		private string _DIACHI;
+		
+		private string _SODIENTHOAI;
+		
+		private System.Nullable<bool> _ROLENAME;
+		
+		private EntitySet<DonHang> _DonHangs;
+		
+		private EntitySet<feedback> _feedbacks;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUSERIDChanging(int value);
+    partial void OnUSERIDChanged();
+    partial void OnUSERNAMEChanging(string value);
+    partial void OnUSERNAMEChanged();
+    partial void OnPASSChanging(string value);
+    partial void OnPASSChanged();
+    partial void OnEMAILChanging(string value);
+    partial void OnEMAILChanged();
+    partial void OnFULLNAMEChanging(string value);
+    partial void OnFULLNAMEChanged();
+    partial void OnDIACHIChanging(string value);
+    partial void OnDIACHIChanged();
+    partial void OnSODIENTHOAIChanging(string value);
+    partial void OnSODIENTHOAIChanged();
+    partial void OnROLENAMEChanging(System.Nullable<bool> value);
+    partial void OnROLENAMEChanged();
+    #endregion
+		
+		public ACCOUNT()
+		{
+			this._DonHangs = new EntitySet<DonHang>(new Action<DonHang>(this.attach_DonHangs), new Action<DonHang>(this.detach_DonHangs));
+			this._feedbacks = new EntitySet<feedback>(new Action<feedback>(this.attach_feedbacks), new Action<feedback>(this.detach_feedbacks));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int USERID
 		{
 			get
 			{
-				return this.GetTable<ACCOUNT>();
+				return this._USERID;
 			}
+			set
+			{
+				if ((this._USERID != value))
+				{
+					this.OnUSERIDChanging(value);
+					this.SendPropertyChanging();
+					this._USERID = value;
+					this.SendPropertyChanged("USERID");
+					this.OnUSERIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERNAME", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string USERNAME
+		{
+			get
+			{
+				return this._USERNAME;
+			}
+			set
+			{
+				if ((this._USERNAME != value))
+				{
+					this.OnUSERNAMEChanging(value);
+					this.SendPropertyChanging();
+					this._USERNAME = value;
+					this.SendPropertyChanged("USERNAME");
+					this.OnUSERNAMEChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PASS", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string PASS
+		{
+			get
+			{
+				return this._PASS;
+			}
+			set
+			{
+				if ((this._PASS != value))
+				{
+					this.OnPASSChanging(value);
+					this.SendPropertyChanging();
+					this._PASS = value;
+					this.SendPropertyChanged("PASS");
+					this.OnPASSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMAIL", DbType="NVarChar(100)")]
+		public string EMAIL
+		{
+			get
+			{
+				return this._EMAIL;
+			}
+			set
+			{
+				if ((this._EMAIL != value))
+				{
+					this.OnEMAILChanging(value);
+					this.SendPropertyChanging();
+					this._EMAIL = value;
+					this.SendPropertyChanged("EMAIL");
+					this.OnEMAILChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FULLNAME", DbType="NVarChar(255)")]
+		public string FULLNAME
+		{
+			get
+			{
+				return this._FULLNAME;
+			}
+			set
+			{
+				if ((this._FULLNAME != value))
+				{
+					this.OnFULLNAMEChanging(value);
+					this.SendPropertyChanging();
+					this._FULLNAME = value;
+					this.SendPropertyChanged("FULLNAME");
+					this.OnFULLNAMEChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DIACHI", DbType="NVarChar(255)")]
+		public string DIACHI
+		{
+			get
+			{
+				return this._DIACHI;
+			}
+			set
+			{
+				if ((this._DIACHI != value))
+				{
+					this.OnDIACHIChanging(value);
+					this.SendPropertyChanging();
+					this._DIACHI = value;
+					this.SendPropertyChanged("DIACHI");
+					this.OnDIACHIChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SODIENTHOAI", DbType="NVarChar(15)")]
+		public string SODIENTHOAI
+		{
+			get
+			{
+				return this._SODIENTHOAI;
+			}
+			set
+			{
+				if ((this._SODIENTHOAI != value))
+				{
+					this.OnSODIENTHOAIChanging(value);
+					this.SendPropertyChanging();
+					this._SODIENTHOAI = value;
+					this.SendPropertyChanged("SODIENTHOAI");
+					this.OnSODIENTHOAIChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ROLENAME", DbType="Bit")]
+		public System.Nullable<bool> ROLENAME
+		{
+			get
+			{
+				return this._ROLENAME;
+			}
+			set
+			{
+				if ((this._ROLENAME != value))
+				{
+					this.OnROLENAMEChanging(value);
+					this.SendPropertyChanging();
+					this._ROLENAME = value;
+					this.SendPropertyChanged("ROLENAME");
+					this.OnROLENAMEChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ACCOUNT_DonHang", Storage="_DonHangs", ThisKey="USERID", OtherKey="USERID")]
+		public EntitySet<DonHang> DonHangs
+		{
+			get
+			{
+				return this._DonHangs;
+			}
+			set
+			{
+				this._DonHangs.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ACCOUNT_feedback", Storage="_feedbacks", ThisKey="USERID", OtherKey="USERID")]
+		public EntitySet<feedback> feedbacks
+		{
+			get
+			{
+				return this._feedbacks;
+			}
+			set
+			{
+				this._feedbacks.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_DonHangs(DonHang entity)
+		{
+			this.SendPropertyChanging();
+			entity.ACCOUNT = this;
+		}
+		
+		private void detach_DonHangs(DonHang entity)
+		{
+			this.SendPropertyChanging();
+			entity.ACCOUNT = null;
+		}
+		
+		private void attach_feedbacks(feedback entity)
+		{
+			this.SendPropertyChanging();
+			entity.ACCOUNT = this;
+		}
+		
+		private void detach_feedbacks(feedback entity)
+		{
+			this.SendPropertyChanging();
+			entity.ACCOUNT = null;
 		}
 	}
 	
@@ -689,9 +975,9 @@ namespace DoAn_LTW.Models
 		
 		private System.Nullable<int> _MaSanPham;
 		
-		private EntityRef<SanPham> _SanPham;
-		
 		private EntityRef<ACCOUNT> _ACCOUNT;
+		
+		private EntityRef<SanPham> _SanPham;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -711,8 +997,8 @@ namespace DoAn_LTW.Models
 		
 		public feedback()
 		{
-			this._SanPham = default(EntityRef<SanPham>);
 			this._ACCOUNT = default(EntityRef<ACCOUNT>);
+			this._SanPham = default(EntityRef<SanPham>);
 			OnCreated();
 		}
 		
@@ -824,40 +1110,6 @@ namespace DoAn_LTW.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SanPham_feedback", Storage="_SanPham", ThisKey="MaSanPham", OtherKey="MaSanPham", IsForeignKey=true)]
-		public SanPham SanPham
-		{
-			get
-			{
-				return this._SanPham.Entity;
-			}
-			set
-			{
-				SanPham previousValue = this._SanPham.Entity;
-				if (((previousValue != value) 
-							|| (this._SanPham.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._SanPham.Entity = null;
-						previousValue.feedbacks.Remove(this);
-					}
-					this._SanPham.Entity = value;
-					if ((value != null))
-					{
-						value.feedbacks.Add(this);
-						this._MaSanPham = value.MaSanPham;
-					}
-					else
-					{
-						this._MaSanPham = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("SanPham");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ACCOUNT_feedback", Storage="_ACCOUNT", ThisKey="USERID", OtherKey="USERID", IsForeignKey=true)]
 		public ACCOUNT ACCOUNT
 		{
@@ -888,6 +1140,40 @@ namespace DoAn_LTW.Models
 						this._USERID = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("ACCOUNT");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SanPham_feedback", Storage="_SanPham", ThisKey="MaSanPham", OtherKey="MaSanPham", IsForeignKey=true)]
+		public SanPham SanPham
+		{
+			get
+			{
+				return this._SanPham.Entity;
+			}
+			set
+			{
+				SanPham previousValue = this._SanPham.Entity;
+				if (((previousValue != value) 
+							|| (this._SanPham.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SanPham.Entity = null;
+						previousValue.feedbacks.Remove(this);
+					}
+					this._SanPham.Entity = value;
+					if ((value != null))
+					{
+						value.feedbacks.Add(this);
+						this._MaSanPham = value.MaSanPham;
+					}
+					else
+					{
+						this._MaSanPham = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("SanPham");
 				}
 			}
 		}
@@ -1392,292 +1678,6 @@ namespace DoAn_LTW.Models
 		{
 			this.SendPropertyChanging();
 			entity.SanPham = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ACCOUNT")]
-	public partial class ACCOUNT : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _USERID;
-		
-		private string _USERNAME;
-		
-		private string _PASS;
-		
-		private string _EMAIL;
-		
-		private string _FULLNAME;
-		
-		private string _DIACHI;
-		
-		private string _SODIENTHOAI;
-		
-		private System.Nullable<bool> _ROLENAME;
-		
-		private EntitySet<DonHang> _DonHangs;
-		
-		private EntitySet<feedback> _feedbacks;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnUSERIDChanging(int value);
-    partial void OnUSERIDChanged();
-    partial void OnUSERNAMEChanging(string value);
-    partial void OnUSERNAMEChanged();
-    partial void OnPASSChanging(string value);
-    partial void OnPASSChanged();
-    partial void OnEMAILChanging(string value);
-    partial void OnEMAILChanged();
-    partial void OnFULLNAMEChanging(string value);
-    partial void OnFULLNAMEChanged();
-    partial void OnDIACHIChanging(string value);
-    partial void OnDIACHIChanged();
-    partial void OnSODIENTHOAIChanging(string value);
-    partial void OnSODIENTHOAIChanged();
-    partial void OnROLENAMEChanging(System.Nullable<bool> value);
-    partial void OnROLENAMEChanged();
-    #endregion
-		
-		public ACCOUNT()
-		{
-			this._DonHangs = new EntitySet<DonHang>(new Action<DonHang>(this.attach_DonHangs), new Action<DonHang>(this.detach_DonHangs));
-			this._feedbacks = new EntitySet<feedback>(new Action<feedback>(this.attach_feedbacks), new Action<feedback>(this.detach_feedbacks));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int USERID
-		{
-			get
-			{
-				return this._USERID;
-			}
-			set
-			{
-				if ((this._USERID != value))
-				{
-					this.OnUSERIDChanging(value);
-					this.SendPropertyChanging();
-					this._USERID = value;
-					this.SendPropertyChanged("USERID");
-					this.OnUSERIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_USERNAME", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string USERNAME
-		{
-			get
-			{
-				return this._USERNAME;
-			}
-			set
-			{
-				if ((this._USERNAME != value))
-				{
-					this.OnUSERNAMEChanging(value);
-					this.SendPropertyChanging();
-					this._USERNAME = value;
-					this.SendPropertyChanged("USERNAME");
-					this.OnUSERNAMEChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PASS", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
-		public string PASS
-		{
-			get
-			{
-				return this._PASS;
-			}
-			set
-			{
-				if ((this._PASS != value))
-				{
-					this.OnPASSChanging(value);
-					this.SendPropertyChanging();
-					this._PASS = value;
-					this.SendPropertyChanged("PASS");
-					this.OnPASSChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMAIL", DbType="NVarChar(100)")]
-		public string EMAIL
-		{
-			get
-			{
-				return this._EMAIL;
-			}
-			set
-			{
-				if ((this._EMAIL != value))
-				{
-					this.OnEMAILChanging(value);
-					this.SendPropertyChanging();
-					this._EMAIL = value;
-					this.SendPropertyChanged("EMAIL");
-					this.OnEMAILChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FULLNAME", DbType="NVarChar(255)")]
-		public string FULLNAME
-		{
-			get
-			{
-				return this._FULLNAME;
-			}
-			set
-			{
-				if ((this._FULLNAME != value))
-				{
-					this.OnFULLNAMEChanging(value);
-					this.SendPropertyChanging();
-					this._FULLNAME = value;
-					this.SendPropertyChanged("FULLNAME");
-					this.OnFULLNAMEChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DIACHI", DbType="NVarChar(255)")]
-		public string DIACHI
-		{
-			get
-			{
-				return this._DIACHI;
-			}
-			set
-			{
-				if ((this._DIACHI != value))
-				{
-					this.OnDIACHIChanging(value);
-					this.SendPropertyChanging();
-					this._DIACHI = value;
-					this.SendPropertyChanged("DIACHI");
-					this.OnDIACHIChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SODIENTHOAI", DbType="NVarChar(15)")]
-		public string SODIENTHOAI
-		{
-			get
-			{
-				return this._SODIENTHOAI;
-			}
-			set
-			{
-				if ((this._SODIENTHOAI != value))
-				{
-					this.OnSODIENTHOAIChanging(value);
-					this.SendPropertyChanging();
-					this._SODIENTHOAI = value;
-					this.SendPropertyChanged("SODIENTHOAI");
-					this.OnSODIENTHOAIChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ROLENAME", DbType="Bit")]
-		public System.Nullable<bool> ROLENAME
-		{
-			get
-			{
-				return this._ROLENAME;
-			}
-			set
-			{
-				if ((this._ROLENAME != value))
-				{
-					this.OnROLENAMEChanging(value);
-					this.SendPropertyChanging();
-					this._ROLENAME = value;
-					this.SendPropertyChanged("ROLENAME");
-					this.OnROLENAMEChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ACCOUNT_DonHang", Storage="_DonHangs", ThisKey="USERID", OtherKey="USERID")]
-		public EntitySet<DonHang> DonHangs
-		{
-			get
-			{
-				return this._DonHangs;
-			}
-			set
-			{
-				this._DonHangs.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ACCOUNT_feedback", Storage="_feedbacks", ThisKey="USERID", OtherKey="USERID")]
-		public EntitySet<feedback> feedbacks
-		{
-			get
-			{
-				return this._feedbacks;
-			}
-			set
-			{
-				this._feedbacks.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_DonHangs(DonHang entity)
-		{
-			this.SendPropertyChanging();
-			entity.ACCOUNT = this;
-		}
-		
-		private void detach_DonHangs(DonHang entity)
-		{
-			this.SendPropertyChanging();
-			entity.ACCOUNT = null;
-		}
-		
-		private void attach_feedbacks(feedback entity)
-		{
-			this.SendPropertyChanging();
-			entity.ACCOUNT = this;
-		}
-		
-		private void detach_feedbacks(feedback entity)
-		{
-			this.SendPropertyChanging();
-			entity.ACCOUNT = null;
 		}
 	}
 }

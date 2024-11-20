@@ -27,7 +27,7 @@ CREATE TABLE SanPham
     HinhAnh NVARCHAR(255),
     SoLuongTonKho INT,
 	MaLoaiSanPham INT,
-	CONSTRAINT FK_LoaiSanPham FOREIGN KEY (MaLoaiSanPham) REFERENCES Loaisanpham(MaLoaiSanPham),
+	CONSTRAINT FK_LoaiSanPham FOREIGN KEY (MaLoaiSanPham) REFERENCES LoaiSanpham(MaLoaiSanPham),
 	CONSTRAINT FK_MaThuongHieu FOREIGN KEY (MaThuongHieu) REFERENCES ThuongHieu(MaThuongHieu)
 );
 
@@ -123,7 +123,7 @@ VALUES
 (12, 'iPad Air 5', 18000000, 1, N'iPad Air 5', 'ipad_air_5.jpg', 12,3),
 (13, 'iPad Gen 9', 10000000, 1, N'iPad thế hệ 9', 'ipad_gen_9.jpg', 25,3),
 (14, 'iPad Pro 11', 25000000, 1, N'iPad Pro 11 inch', 'ipad_pro_11.jpg', 10,3),
-(15, 'iPad Pro 12.9', 30000000, 1, N'iPad Pro 12.9 inch', 'ipad_pro_12_9.jpg', 5,3),
+(15, 'iPad Pro 12.9', 30000000, 1, N'iPad Pro 12.9 inch', 'ipad_pro_129.jpg', 5,3),
 
 -- Phu Kien
 (16, N'Tai nghe AirPods Pro', 5000000, 1, N'Tai nghe không dây AirPods Pro', 'airpods_pro.jpg', 100,4),

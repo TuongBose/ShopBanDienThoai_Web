@@ -155,13 +155,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\DienThoaiController.cs" />
     <Compile Include="Controllers\NguoiDungController.cs" />
-    <Compile Include="Controllers\PhanLoaiSanPhamController.cs" />
+    <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Controllers\TrangChuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DienThoai_ThuongHieu.cs" />
     <Compile Include="Models\QLDT.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -206,9 +206,9 @@
     <Content Include="Views\TrangChu\TrangChu.cshtml" />
     <Content Include="Views\NguoiDung\DangNhap.cshtml" />
     <Content Include="Views\NguoiDung\DangKy.cshtml" />
-    <Content Include="Views\DienThoai\TatCaSanPham.cshtml" />
-    <Content Include="Views\PhanLoaiSanPham\SanPhamTheoLoai.cshtml" />
-    <Content Include="Views\DienThoai\XemChiTiet.cshtml" />
+    <Content Include="Views\SanPham\DienThoai.cshtml" />
+    <Content Include="Views\SanPham\DienThoai_ThuongHieu.cshtml" />
+    <Content Include="Views\SanPham\XemChiTiet.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

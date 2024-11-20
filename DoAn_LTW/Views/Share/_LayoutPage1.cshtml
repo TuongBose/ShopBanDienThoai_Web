@@ -7,20 +7,25 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
 
     <style>
+        html, body {
+            height: 100%; /* Đặt chiều cao của HTML và Body là 100% */
+            margin: 0; /* Xóa margin mặc định */
+        }
+
         body {
-            margin: 0; /* Đặt margin cho body bằng 0 */
-            padding-bottom: 60px; /* Đặt padding dưới cùng để tránh che khuất nội dung */
+            display: flex;
+            flex-direction: column; /* Sắp xếp các phần tử theo cột */
+        }
+
+        .container-fluid {
+            flex: 1; /* Tăng chiều cao phần nội dung để footer luôn nằm dưới */
         }
 
         footer {
-            position: fixed; /* Đặt footer ở vị trí cố định */
-            left: 0;
-            bottom: 0; /* Đặt footer ở dưới cùng */
-            width: 100%; /* Đặt chiều rộng của footer 100% */
-            background-color: #343a40; /* Màu nền của footer */
-            color: #ffffff; /* Màu chữ */
-            text-align: center; /* Căn giữa văn bản */
-            padding: 15px 0; /* Padding cho footer */
+            background-color: #343a40; /* Giữ màu nền */
+            color: #ffffff;
+            text-align: center;
+            padding: 15px 0;
         }
     </style>
 </head>
@@ -79,7 +84,7 @@
         <div class="container">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link btn btn-outline-primary mx-2" href="#">
+                    <a class="nav-link btn btn-outline-primary mx-2" href="@Url.Action("DienThoai", "SanPham", new { @maloaisanpham = 1 }, null)">
                         <img src="~/Images/Icon/Phone.png" style="width: 24px; height: 24px;" /> Điện Thoại
                     </a>
                 </li>
@@ -113,7 +118,7 @@
     </nav>
 
     <!-- Hien thi noi dung -->
-    <div class="container-fluid">
+    <div>
         @RenderBody()
     </div>
 

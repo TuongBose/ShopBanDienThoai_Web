@@ -2,12 +2,8 @@
 
 @{
     ViewBag.Title = "Chi tiết sản phẩm";
-    Layout = "~/Views/Shared/UserLayout.cshtml";
+    Layout = "~/Views/Share/_LayoutPage1.cshtml";
 }
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <div class="container">
     <h2 class="text-center">CHI TIẾT SẢN PHẨM</h2>
@@ -15,7 +11,7 @@
     <div class="row mb-4">
         <!-- Product Image -->
         <div class="col-md-4">
-            <img src="@Url.Content("~/images2/images/" + Model.HinhAnh)" class="img-fluid" alt="@Model.TenSanPham" />
+            <img src="@Url.Content("~/images2/images/" + Model.HinhAnh)" class="img-fluid" style="width: 300px; height: 300px;" alt="@Model.TenSanPham" />
         </div>
 
         <!-- Product Details -->
@@ -49,17 +45,16 @@
 
             <div>
                 <!-- Button mua ngay -->
-                <a href="@Url.Action("MuaNgay", "DienThoai", new { msp = Model.MaSanPham })">
-                    <input type="submit" value="MUA NGAY" class="btn btn-primary" />
+                <a href="@Url.Action("MuaNgay", "DienThoai", new { msp = Model.MaSanPham })" class="btn btn-primary">
+                    MUA NGAY
                 </a>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <!-- Button thêm vào giỏ hàng -->
-                <a href="@Url.Action("ThemGioHang", "GioHang", new { msp = Model.MaSanPham })">
-                    <input type="submit" value="THÊM VÀO GIỎ HÀNG" class="btn btn-success" />
+                <a href="@Url.Action("ThemGioHang", "GioHang", new { msp = Model.MaSanPham })" class="btn btn-success">
+                    THÊM VÀO GIỎ HÀNG
                 </a>
             </div>
         </div>
     </div>
-
 </div>
