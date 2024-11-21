@@ -113,5 +113,11 @@ namespace DoAn_LTW.Controllers
                 return View();
             }
         }
+
+        public ActionResult DangXuat()
+        {
+            Session["Account"] = null;
+            return RedirectToAction("TrangChu", "TrangChu");
+        }
     }
 }

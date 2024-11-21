@@ -1,5 +1,9 @@
 ﻿<!DOCTYPE html>
 
+@{ 
+    DoAn_LTW.Models.ACCOUNT TaiKhoan = Session["Account"] as DoAn_LTW.Models.ACCOUNT;
+}
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -59,7 +63,7 @@
                 <button class="btn btn-light" type="submit">Tìm kiếm</button>
             </form>
         </div>
-        <div class="col-2">
+        <div class="col-3">
             <ul class="navbar-nav ms-auto">
                 <!-- Giỏ hàng -->
                 <li class="nav-item">
@@ -69,12 +73,25 @@
                     </a>
                 </li>
                 <!-- Đăng nhập -->
-                <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("DangNhap","NguoiDung")">
-                        <i class="bi bi-person-circle"></i>
-                        <img src="~/Images/Icon/user.png" style="width: 24px; height: 24px;" />Đăng nhập
-                    </a>
-                </li>
+                @if (TaiKhoan != null)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("DangNhap", "NguoiDung")">
+                            <i class="bi bi-person-circle"></i>
+                            <img src="~/Images/Icon/user.png" style="width: 24px; height: 24px;" />@TaiKhoan.FULLNAME
+                        </a>
+                        <a class="nav-link btn btn-outline-primary mx-2" href="@Url.Action("DangXuat","NguoiDung")">Đăng Xuất</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("DangNhap", "NguoiDung")">
+                            <i class="bi bi-person-circle"></i>
+                            <img src="~/Images/Icon/user.png" style="width: 24px; height: 24px;" />Đăng nhập
+                        </a>
+                    </li>
+                }
             </ul>
         </div>
     </nav>
