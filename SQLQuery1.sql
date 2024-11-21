@@ -8,7 +8,9 @@ GO
 CREATE TABLE LoaiSanPham 
 (
     MaLoaiSanPham INT NOT NULL PRIMARY KEY,
-    TenLoaiSanPham NVARCHAR(255) NOT NULL
+    TenLoaiSanPham NVARCHAR(255) NOT NULL,
+	HinhAnh NVARCHAR(100),
+	TenController NVARCHAR(100)
 );
 
 CREATE TABLE ThuongHieu
@@ -74,14 +76,14 @@ CREATE TABLE feedback (
 --NHẬP DỮ LIỆU
 
 -- Nhập dữ liệu vào bảng LoaiSanPham
-INSERT INTO LoaiSanPham (MaLoaiSanPham, TenLoaiSanPham) 
+INSERT INTO LoaiSanPham (MaLoaiSanPham, TenLoaiSanPham, HinhAnh, TenController) 
 VALUES 
-(1, N'Điện Thoại'),
-(2, N'Máy Tính Bảng'),
-(3, N'Ipad'),
-(4, N'Phụ Kiện'),
-(5, N'Sim, Thẻ Cào'),
-(6, N'Laptop');
+(1, N'Điện Thoại', N'Phone.png', N'DienThoai'),
+(2, N'Máy Tính Bảng', N'Tablet.png', N'MayTinhBang'),
+(3, N'Ipad', N'ipad.png',  N'Ipad'),
+(4, N'Phụ Kiện', N'Wire.png',  N'PhuKien'),
+(5, N'Sim, Thẻ Cào', N'sim.png',  N'Sim'),
+(6, N'Laptop', N'Laptop.png',  N'Laptop');
 
 -- Nhập dữ liệu vào bảng ThuongHieu
 INSERT INTO ThuongHieu (MaThuongHieu,TenThuongHieu)
@@ -194,3 +196,6 @@ SELECT * FROM ChiTietDonHang
 SELECT * FROM feedback
 SELECT * FROM ThuongHieu
 SELECT * FROM ACCOUNT
+
+use master
+drop database WEBBANDIENTHOAI

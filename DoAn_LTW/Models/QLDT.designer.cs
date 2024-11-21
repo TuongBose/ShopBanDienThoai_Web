@@ -1209,6 +1209,10 @@ namespace DoAn_LTW.Models
 		
 		private string _TenLoaiSanPham;
 		
+		private string _HinhAnh;
+		
+		private string _TenController;
+		
 		private EntitySet<SanPham> _SanPhams;
 		
     #region Extensibility Method Definitions
@@ -1219,6 +1223,10 @@ namespace DoAn_LTW.Models
     partial void OnMaLoaiSanPhamChanged();
     partial void OnTenLoaiSanPhamChanging(string value);
     partial void OnTenLoaiSanPhamChanged();
+    partial void OnHinhAnhChanging(string value);
+    partial void OnHinhAnhChanged();
+    partial void OnTenControllerChanging(string value);
+    partial void OnTenControllerChanged();
     #endregion
 		
 		public LoaiSanPham()
@@ -1263,6 +1271,46 @@ namespace DoAn_LTW.Models
 					this._TenLoaiSanPham = value;
 					this.SendPropertyChanged("TenLoaiSanPham");
 					this.OnTenLoaiSanPhamChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HinhAnh", DbType="NVarChar(100)")]
+		public string HinhAnh
+		{
+			get
+			{
+				return this._HinhAnh;
+			}
+			set
+			{
+				if ((this._HinhAnh != value))
+				{
+					this.OnHinhAnhChanging(value);
+					this.SendPropertyChanging();
+					this._HinhAnh = value;
+					this.SendPropertyChanged("HinhAnh");
+					this.OnHinhAnhChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenController", DbType="NVarChar(100)")]
+		public string TenController
+		{
+			get
+			{
+				return this._TenController;
+			}
+			set
+			{
+				if ((this._TenController != value))
+				{
+					this.OnTenControllerChanging(value);
+					this.SendPropertyChanging();
+					this._TenController = value;
+					this.SendPropertyChanged("TenController");
+					this.OnTenControllerChanged();
 				}
 			}
 		}

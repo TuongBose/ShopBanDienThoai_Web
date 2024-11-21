@@ -55,6 +55,8 @@
     <Type Name="LoaiSanPham">
       <Column Name="MaLoaiSanPham" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="TenLoaiSanPham" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="HinhAnh" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TenController" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Association Name="LoaiSanPham_SanPham" Member="SanPhams" ThisKey="MaLoaiSanPham" OtherKey="MaLoaiSanPham" Type="SanPham" />
     </Type>
   </Table>

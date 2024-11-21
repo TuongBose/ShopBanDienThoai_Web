@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 
+
 @{ 
+    List<DoAn_LTW.Models.LoaiSanPham> listloaisanpham = ViewData["LoaiSanPhamList"] as List<DoAn_LTW.Models.LoaiSanPham>;
     DoAn_LTW.Models.ACCOUNT TaiKhoan = Session["Account"] as DoAn_LTW.Models.ACCOUNT;
 }
 
@@ -100,36 +102,14 @@
     <nav class="navbar navbar-expand-sm bg-success navbar-dark">
         <div class="container">
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link btn btn-outline-primary mx-2" href="@Url.Action("DienThoai", "SanPham", new { @maloaisanpham = 1 }, null)">
-                        <img src="~/Images/Icon/Phone.png" style="width: 24px; height: 24px;" /> Điện Thoại
-                    </a>
-                </li>
-		<li class="nav-item">
-                    <a class="nav-link btn btn-outline-primary mx-2" href="#">
-                        <img src="~/Images/Icon/Tablet.png" style="width: 24px; height: 24px;" /> Máy Tính Bảng
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-outline-primary mx-2" href="#">
-                        <img src="~/Images/Icon/ipad.png" style="width: 24px; height: 24px;" /> Ipad
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-outline-primary mx-2" href="#">
-                        <img src="~/Images/Icon/Laptop.png" style="width: 24px; height: 24px;" /> Laptop
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-outline-primary mx-2" href="#">
-                        <img src="~/Images/Icon/Wire.png" style="width: 24px; height: 24px;" /> Phụ Kiện
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-outline-primary mx-2" href="#">
-                        <img src="~/Images/Icon/sim.png" style="width: 24px; height: 24px;" /> Sim, Thẻ Cào
-                    </a>
-                </li>
+                @foreach (var item in listloaisanpham)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-primary mx-2" href="@Url.Action(item.TenController, "SanPham", new { @maloaisanpham = item.MaLoaiSanPham })">
+                            <img src="~/Images/Icon/@item.HinhAnh" style="width: 24px; height: 24px;" /> @item.TenLoaiSanPham
+                        </a>
+                    </li>
+                }
             </ul>
         </div>
     </nav>
