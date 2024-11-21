@@ -52,10 +52,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Sản phẩm</a>
                 </li>
-
-                @*<li class="nav-item">
-            <a class="nav-link" href="#">Sản phẩm</a>
-        </li>*@
             </ul>
         </div>
         <div class="col-3">
@@ -105,7 +101,7 @@
                 @foreach (var item in listloaisanpham)
                 {
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-primary mx-2" href="@Url.Action(item.TenController, "SanPham", new { @maloaisanpham = item.MaLoaiSanPham })">
+                        <a class="nav-link btn btn-outline-primary mx-2" href="@Url.Action(item.TenController, "SanPham", new { @maloaisanpham = item.MaLoaiSanPham, @MaThuongHieu = (int?)null }, null)">
                             <img src="~/Images/Icon/@item.HinhAnh" style="width: 24px; height: 24px;" /> @item.TenLoaiSanPham
                         </a>
                     </li>

@@ -18,9 +18,10 @@ namespace DoAn_LTW.Controllers
             return View(sanpham);
         }
 
-        public ActionResult DienThoai(int maloaisanpham)
+        public ActionResult DienThoai(int maloaisanpham, int? MaThuongHieu)
         {
-            var list_dienthoai = db.SanPhams
+
+            var list_ALL_dienthoai = db.SanPhams
                 .Where(sp => sp.MaLoaiSanPham == maloaisanpham)
                 .ToList();
 
@@ -37,18 +38,29 @@ namespace DoAn_LTW.Controllers
                 )
                 .ToList();
 
+            List<Models.SanPham> list_sanpham_thuonghieu;
+            if (MaThuongHieu.HasValue)
+            {
+                list_sanpham_thuonghieu = db.SanPhams
+                .Where(sp => sp.MaThuongHieu == MaThuongHieu && sp.MaLoaiSanPham == maloaisanpham)
+                .ToList();
+            }
+            else
+                list_sanpham_thuonghieu = list_ALL_dienthoai;
+
             var list_dienthoai_thuonghieu = new Models.SanPham_ThuongHieu
             {
-                DanhSachSanPham = list_dienthoai,
-                DanhSachThuongHieu = list_thuonghieu
+                DanhSachSanPham = list_ALL_dienthoai,
+                DanhSachThuongHieu = list_thuonghieu,
+                DanhSachSanPham_ThuongHieu = list_sanpham_thuonghieu
             };
 
             return View(list_dienthoai_thuonghieu);
         }
 
-        public ActionResult MayTinhBang(int maloaisanpham)
+        public ActionResult MayTinhBang(int maloaisanpham, int? MaThuongHieu)
         {
-            var list_maytinhbang = db.SanPhams
+            var list_ALL_maytinhbang = db.SanPhams
                 .Where(sp => sp.MaLoaiSanPham == maloaisanpham)
                 .ToList();
 
@@ -65,18 +77,29 @@ namespace DoAn_LTW.Controllers
                 )
                 .ToList();
 
+            List<Models.SanPham> list_sanpham_thuonghieu;
+            if (MaThuongHieu.HasValue)
+            {
+                list_sanpham_thuonghieu = db.SanPhams
+                .Where(sp => sp.MaThuongHieu == MaThuongHieu && sp.MaLoaiSanPham == maloaisanpham)
+                .ToList();
+            }
+            else
+                list_sanpham_thuonghieu = list_ALL_maytinhbang;
+
             var list_maytinhbang_thuonghieu = new Models.SanPham_ThuongHieu
             {
-                DanhSachSanPham = list_maytinhbang,
-                DanhSachThuongHieu=list_thuonghieu
+                DanhSachSanPham = list_ALL_maytinhbang,
+                DanhSachThuongHieu=list_thuonghieu,
+                DanhSachSanPham_ThuongHieu = list_sanpham_thuonghieu
             };
 
             return View(list_maytinhbang_thuonghieu);
         }
 
-        public ActionResult Ipad(int maloaisanpham)
+        public ActionResult Ipad(int maloaisanpham, int? MaThuongHieu)
         {
-            var list_ipad = db.SanPhams
+            var list_ALL_ipad = db.SanPhams
                 .Where(sp => sp.MaLoaiSanPham == maloaisanpham)
                 .ToList();
 
@@ -93,18 +116,29 @@ namespace DoAn_LTW.Controllers
                 )
                 .ToList();
 
+            List<Models.SanPham> list_sanpham_thuonghieu;
+            if (MaThuongHieu.HasValue)
+            {
+                list_sanpham_thuonghieu = db.SanPhams
+                .Where(sp => sp.MaThuongHieu == MaThuongHieu && sp.MaLoaiSanPham == maloaisanpham)
+                .ToList();
+            }
+            else
+                list_sanpham_thuonghieu = list_ALL_ipad;
+
             var list_ipad_thuonghieu = new Models.SanPham_ThuongHieu
             {
-                DanhSachSanPham = list_ipad,
-                DanhSachThuongHieu = list_thuonghieu
+                DanhSachSanPham = list_ALL_ipad,
+                DanhSachThuongHieu = list_thuonghieu,
+                DanhSachSanPham_ThuongHieu = list_sanpham_thuonghieu
             };
 
             return View(list_ipad_thuonghieu);
         }
 
-        public ActionResult PhuKien(int maloaisanpham)
+        public ActionResult PhuKien(int maloaisanpham, int? MaThuongHieu)
         {
-            var list_phukien = db.SanPhams
+            var list_ALL_phukien = db.SanPhams
                 .Where(sp => sp.MaLoaiSanPham == maloaisanpham)
                 .ToList();
 
@@ -121,18 +155,29 @@ namespace DoAn_LTW.Controllers
                 )
                 .ToList();
 
+            List<Models.SanPham> list_sanpham_thuonghieu;
+            if (MaThuongHieu.HasValue)
+            {
+                list_sanpham_thuonghieu = db.SanPhams
+                .Where(sp => sp.MaThuongHieu == MaThuongHieu && sp.MaLoaiSanPham == maloaisanpham)
+                .ToList();
+            }
+            else
+                list_sanpham_thuonghieu = list_ALL_phukien;
+
             var list_phukien_thuonghieu = new Models.SanPham_ThuongHieu
             {
-                DanhSachSanPham = list_phukien,
-                DanhSachThuongHieu = list_thuonghieu
+                DanhSachSanPham = list_ALL_phukien,
+                DanhSachThuongHieu = list_thuonghieu,
+                DanhSachSanPham_ThuongHieu = list_sanpham_thuonghieu
             };
 
             return View(list_phukien_thuonghieu);
         }
 
-        public ActionResult Sim(int maloaisanpham)
+        public ActionResult Sim(int maloaisanpham, int? MaThuongHieu)
         {
-            var list_sim_theocao = db.SanPhams
+            var list_ALL_sim_thecao = db.SanPhams
                 .Where(sp => sp.MaLoaiSanPham == maloaisanpham)
                 .ToList();
 
@@ -149,18 +194,29 @@ namespace DoAn_LTW.Controllers
                 )
                 .ToList();
 
+            List<Models.SanPham> list_sanpham_thuonghieu;
+            if (MaThuongHieu.HasValue)
+            {
+                list_sanpham_thuonghieu = db.SanPhams
+                .Where(sp => sp.MaThuongHieu == MaThuongHieu && sp.MaLoaiSanPham == maloaisanpham)
+                .ToList();
+            }
+            else
+                list_sanpham_thuonghieu = list_ALL_sim_thecao;
+
             var list_sim_thecao_thuonghieu = new Models.SanPham_ThuongHieu
             {
-                DanhSachSanPham = list_sim_theocao,
-                DanhSachThuongHieu = list_thuonghieu
+                DanhSachSanPham = list_ALL_sim_thecao,
+                DanhSachThuongHieu = list_thuonghieu,
+                DanhSachSanPham_ThuongHieu = list_sanpham_thuonghieu
             };
 
             return View(list_sim_thecao_thuonghieu);
         }
 
-        public ActionResult Laptop(int maloaisanpham)
+        public ActionResult Laptop(int maloaisanpham, int? MaThuongHieu)
         {
-            var list_laptop = db.SanPhams
+            var list_ALL_laptop = db.SanPhams
                 .Where(sp => sp.MaLoaiSanPham == maloaisanpham)
                 .ToList();
 
@@ -177,10 +233,21 @@ namespace DoAn_LTW.Controllers
                 )
                 .ToList();
 
+            List<Models.SanPham> list_sanpham_thuonghieu;
+            if (MaThuongHieu.HasValue)
+            {
+                list_sanpham_thuonghieu = db.SanPhams
+                .Where(sp => sp.MaThuongHieu == MaThuongHieu && sp.MaLoaiSanPham == maloaisanpham)
+                .ToList();
+            }
+            else
+                list_sanpham_thuonghieu = list_ALL_laptop;
+
             var list_laptop_thuonghieu = new Models.SanPham_ThuongHieu
             {
-                DanhSachSanPham = list_laptop,
-                DanhSachThuongHieu = list_thuonghieu
+                DanhSachSanPham = list_ALL_laptop,
+                DanhSachThuongHieu = list_thuonghieu,
+                DanhSachSanPham_ThuongHieu = list_sanpham_thuonghieu
             };
 
             return View(list_laptop_thuonghieu);

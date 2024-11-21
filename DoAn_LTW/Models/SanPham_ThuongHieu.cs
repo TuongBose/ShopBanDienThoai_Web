@@ -9,5 +9,6 @@ namespace DoAn_LTW.Models
     {
         public List<Models.SanPham> DanhSachSanPham { get; set; }
         public List<Models.ThuongHieu> DanhSachThuongHieu { get; set; }
+        public List<Models.SanPham> DanhSachSanPham_ThuongHieu { get; set; }
     }
 }

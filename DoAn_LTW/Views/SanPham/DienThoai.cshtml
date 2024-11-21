@@ -40,7 +40,7 @@
         <h4 class="text-center text-light">Thương Hiệu</h4>
         @foreach(var thuonghieu in Model.DanhSachThuongHieu)
             {
-                <a href="#">@thuonghieu.TenThuongHieu</a>
+                <a href="@Url.Action("DienThoai", "SanPham", new {@maloaisanpham=Model.DanhSachSanPham.First().MaLoaiSanPham, @MaThuongHieu = thuonghieu.MaThuongHieu }, null)">@thuonghieu.TenThuongHieu</a>
             }
     </div>
 
@@ -51,17 +51,35 @@
 
         <div class="container mt-4">
             <div class="row">
-                @foreach (var item in Model.DanhSachSanPham)
+                @if (Model.DanhSachSanPham_ThuongHieu == null)
                 {
-                    <div class="col-md-3 mb-4">
-                        <div class="card h-100">
-                            <img src="~/images2/images/@item.HinhAnh" class="card-img-top" alt="Hình ảnh sản phẩm" />
-                            <div class="card-body text-center">
-                                <h5 class="card-title">@item.TenSanPham</h5>
-                                <a href="@Url.Action("XemChiTiet", "SanPham", new { @msp = item.MaSanPham })" class="btn btn-primary">Xem chi tiết</a>
+                    foreach (var item in Model.DanhSachSanPham)
+                    {
+                        <div class="col-md-3 mb-4">
+                            <div class="card h-100">
+                                <img src="~/images2/images/@item.HinhAnh" class="card-img-top" alt="Hình ảnh sản phẩm" />
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">@item.TenSanPham</h5>
+                                    <a href="@Url.Action("XemChiTiet", "SanPham", new { @msp = item.MaSanPham })" class="btn btn-primary">Xem chi tiết</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
+                }
+                else
+                {
+                    foreach (var item in Model.DanhSachSanPham_ThuongHieu)
+                    {
+                        <div class="col-md-3 mb-4">
+                            <div class="card h-100">
+                                <img src="~/images2/images/@item.HinhAnh" class="card-img-top" alt="Hình ảnh sản phẩm" />
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">@item.TenSanPham</h5>
+                                    <a href="@Url.Action("XemChiTiet", "SanPham", new { @msp = item.MaSanPham })" class="btn btn-primary">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 }
             </div>
         </div>
