@@ -2,7 +2,7 @@
 
 
 @{ 
-    List<DoAn_LTW.Models.LoaiSanPham> listloaisanpham = ViewData["LoaiSanPhamList"] as List<DoAn_LTW.Models.LoaiSanPham>;
+    List<DoAn_LTW.Models.LoaiSanPham> listloaisanpham = Session["LoaiSanPhamList"] as List<DoAn_LTW.Models.LoaiSanPham>;
     DoAn_LTW.Models.ACCOUNT TaiKhoan = Session["Account"] as DoAn_LTW.Models.ACCOUNT;
 }
 

@@ -15,7 +15,7 @@ namespace DoAn_LTW.Controllers
         {
             var danhSachSanPham = db.SanPhams.ToList();
             var list_loaisanpham = db.LoaiSanPhams.ToList();
-            ViewData["LoaiSanPhamList"] = list_loaisanpham;
+            Session["LoaiSanPhamList"] = list_loaisanpham;
             return View(danhSachSanPham);
         }
 
