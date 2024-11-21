@@ -1,6 +1,6 @@
 ﻿@model DoAn_LTW.Models.SanPham_ThuongHieu
 @{
-    ViewBag.Title = "DienThoai";
+    ViewBag.Title = "Laptop";
     Layout = "~/Views/Share/LayoutUser.cshtml";
 }
 
@@ -38,10 +38,10 @@
     <!-- Slidebar -->
     <div class="slidebar">
         <h4 class="text-center text-light">Thương Hiệu</h4>
-        @foreach(var thuonghieu in Model.DanhSachThuongHieu)
-            {
-                <a href="#">@thuonghieu.TenThuongHieu</a>
-            }
+        @foreach (var thuonghieu in Model.DanhSachThuongHieu)
+        {
+            <a href="#">@thuonghieu.TenThuongHieu</a>
+        }
     </div>
 
     <!-- Nội dung chính -->
@@ -67,5 +67,4 @@
         </div>
     </div>
 </div>
-
 

@@ -167,6 +167,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QLDT.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\SanPham_ThuongHieu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -207,10 +208,14 @@
     <Content Include="Views\NguoiDung\DangNhap.cshtml" />
     <Content Include="Views\NguoiDung\DangKy.cshtml" />
     <Content Include="Views\SanPham\DienThoai.cshtml" />
-    <Content Include="Views\SanPham\DienThoai_ThuongHieu.cshtml" />
     <Content Include="Views\SanPham\XemChiTiet.cshtml" />
     <Content Include="Views\Share\LayoutAdmin.cshtml" />
     <Content Include="Views\TrangChu\TrangChuAdmin.cshtml" />
+    <Content Include="Views\SanPham\MayTinhBang.cshtml" />
+    <Content Include="Views\SanPham\Ipad.cshtml" />
+    <Content Include="Views\SanPham\PhuKien.cshtml" />
+    <Content Include="Views\SanPham\Laptop.cshtml" />
+    <Content Include="Views\SanPham\Sim.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
