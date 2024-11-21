@@ -196,7 +196,7 @@
       <DependentUpon>QLDT.dbml</DependentUpon>
     </None>
     <None Include="packages.config" />
-    <Content Include="Views\Share\_LayoutPage1.cshtml" />
+    <Content Include="Views\Share\LayoutUser.cshtml" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.esm.min.js.map" />
@@ -209,6 +209,8 @@
     <Content Include="Views\SanPham\DienThoai.cshtml" />
     <Content Include="Views\SanPham\DienThoai_ThuongHieu.cshtml" />
     <Content Include="Views\SanPham\XemChiTiet.cshtml" />
+    <Content Include="Views\Share\LayoutAdmin.cshtml" />
+    <Content Include="Views\TrangChu\TrangChuAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
