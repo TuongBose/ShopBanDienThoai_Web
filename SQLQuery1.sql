@@ -29,7 +29,7 @@ CREATE TABLE SanPham
     HinhAnh NVARCHAR(255),
     SoLuongTonKho INT,
 	MaLoaiSanPham INT,
-	CONSTRAINT FK_LoaiSanPham FOREIGN KEY (MaLoaiSanPham) REFERENCES LoaiSanpham(MaLoaiSanPham),
+	CONSTRAINT FK_LoaiSanPham FOREIGN KEY (MaLoaiSanPham) REFERENCES LoaiSanPham(MaLoaiSanPham),
 	CONSTRAINT FK_MaThuongHieu FOREIGN KEY (MaThuongHieu) REFERENCES ThuongHieu(MaThuongHieu)
 );
 
