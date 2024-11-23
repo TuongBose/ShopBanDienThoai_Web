@@ -162,12 +162,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\QLDT.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>QLDT.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\SanPham_ThuongHieu.cs" />
+    <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +218,8 @@
     <Content Include="Views\SanPham\PhuKien.cshtml" />
     <Content Include="Views\SanPham\Laptop.cshtml" />
     <Content Include="Views\SanPham\Sim.cshtml" />
+    <Content Include="Views\SanPham\TimKiem.cshtml" />
+    <Content Include="Views\SanPham\ViewCart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

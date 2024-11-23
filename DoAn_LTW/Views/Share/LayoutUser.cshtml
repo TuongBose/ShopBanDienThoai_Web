@@ -56,7 +56,7 @@
         </div>
         <div class="col-3">
             <!-- Thanh tìm kiếm -->
-            <form class="d-flex" action="/timkiem" method="get">
+            <form class="d-flex" action="@Url.Action("TimKiem", "SanPham")" method="get">
                 <input class="form-control me-2" type="search" placeholder="Tìm kiếm sản phẩm" aria-label="Search" name="query">
                 <button class="btn btn-light" type="submit">Tìm kiếm</button>
             </form>
@@ -65,7 +65,7 @@
             <ul class="navbar-nav ms-auto">
                 <!-- Giỏ hàng -->
                 <li class="nav-item">
-                    <a class="nav-link" href="/giohang">
+                    <a class="nav-link" href="@Url.Action("ViewCart", "SanPham")">
                         <i class="bi bi-cart"></i>
                         <img src="~/Images/Icon/Bag.png" style="width: 24px; height: 24px;" />Giỏ hàng
                     </a>

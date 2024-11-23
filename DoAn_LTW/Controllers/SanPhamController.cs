@@ -252,5 +252,103 @@ namespace DoAn_LTW.Controllers
 
             return View(list_laptop_thuonghieu);
         }
+
+        // Giỏ hàng
+        private ShoppingCart GetCart()
+        {
+            ShoppingCart cart = Session["Cart"] as ShoppingCart;
+            if (cart == null)
+            {
+                cart = new ShoppingCart();
+                Session["Cart"] = cart;
+            }
+            return cart;
+        }
+
+        // Thêm sản phẩm vào giỏ hàng
+        public ActionResult AddToCart(int msp, int soLuong)
+        {
+            SanPham sanPham = db.SanPhams.SingleOrDefault(sp => sp.MaSanPham == msp);
+            if (sanPham != null)
+            {
+                ShoppingCart cart = GetCart();
+                cart.AddToCart(sanPham, soLuong);
+            }
+            return RedirectToAction("ViewCart");
+        }
+
+        // Xem giỏ hàng
+        public ActionResult ViewCart()
+        {
+            ShoppingCart cart = GetCart();
+            return View(cart);
+        }
+
+        // Xóa sản phẩm khỏi giỏ hàng
+        public ActionResult RemoveFromCart(int msp)
+        {
+            ShoppingCart cart = GetCart();
+            cart.RemoveFromCart(msp);
+            return RedirectToAction("ViewCart");
+        }
+
+        public ActionResult UpdateCart(int maSanPham, int soLuong)
+        {
+            ShoppingCart cart = GetCart();
+
+            var item = cart.Items.FirstOrDefault(i => i.MaSanPham == maSanPham);
+            if (item != null && soLuong > 0)
+            {
+                item.SoLuong = soLuong;
+            }
+
+            return RedirectToAction("ViewCart");
+        }
+
+        [HttpPost]
+        public JsonResult UpdateCartJson(int maSanPham, int soLuong)
+        {
+            ShoppingCart cart = GetCart();
+
+            var item = cart.Items.FirstOrDefault(i => i.MaSanPham == maSanPham);
+            if (item != null && soLuong > 0)
+            {
+                item.SoLuong = soLuong;
+            }
+
+            return Json(new
+            {
+                success = true,
+                totalPrice = cart.GetTotal(),
+                itemTotal = item?.ThanhTien
+            });
+        }
+
+        // Thanh toán
+        public ActionResult Checkout()
+        {
+            ShoppingCart cart = GetCart();
+
+            cart.Clear();
+            return RedirectToAction("TrangChu", "TrangChu");
+        }
+
+        public ActionResult TimKiem(string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+
+                var allProducts = db.SanPhams.ToList();
+                return View(allProducts);
+            }
+            else
+            {
+                var searchResults = db.SanPhams
+                    .Where(sp => sp.TenSanPham.Contains(query) || sp.MoTa.Contains(query))
+                    .ToList();
+
+                return View(searchResults);
+            }
+        }
     }
 }
