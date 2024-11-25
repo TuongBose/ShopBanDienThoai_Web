@@ -1,0 +1,23 @@
+﻿@model IEnumerable<DoAn_LTW.Models.LoaiSanPham>
+@{
+    ViewBag.Title = "QuanLyLoaiSanPham";
+    Layout = "~/Views/Share/LayoutAdmin.cshtml";
+}
+
+<h2>Quản lý loại sản phẩm</h2>
+<br />
+<a href="@Url.Action("ThemLoaiSanPham", "Admin")" class="btn btn-primary">Thêm mới loại sản phẩm</a>
+<br />
+<br />
+
+<table class="table">
+    <tr>
+        <th>Tên loại sản phẩm</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.TenLoaiSanPham</td>
+        </tr>
+    }
+</table>

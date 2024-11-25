@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -82,6 +84,84 @@ namespace DoAn_LTW.Controllers
                 db.SubmitChanges();
             }
             return RedirectToAction("QuanLySanPham");
+        }
+
+        public ActionResult QuanLyLoaiSanPham()
+        {
+            return View(db.LoaiSanPhams);
+        }
+
+        [HttpGet]
+        public ActionResult ThemLoaiSanPham()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ThemLoaiSanPham(FormCollection Data, Models.LoaiSanPham LSP, HttpPostedFileBase HinhAnh)
+        {
+            var tenloaisanpham = Data["TenLoaiSanPham"];
+            var tencontroller = Data["TenController"];
+
+            bool hasError = false;
+
+            if (String.IsNullOrEmpty(tenloaisanpham))
+            {
+                ViewData["LoiTenLoaiSanPham"] = "Tên loại sản phẩm không được bỏ trống";
+                hasError = true;
+            }
+
+            if (HinhAnh == null || HinhAnh.ContentLength == 0)
+            {
+                ViewData["LoiHinhAnh"] = "File hình ảnh không được bỏ trống";
+                hasError = true;
+            }
+            else
+            {
+                var ChapNhanDinhDangAnh = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                var DinhDangFileAnh = System.IO.Path.GetExtension(HinhAnh.FileName).ToLower();
+
+                if(!ChapNhanDinhDangAnh.Contains(DinhDangFileAnh))
+                {
+                    ViewData["LoiHinhAnh"] = "Chỉ chấp nhận định dạng file ảnh jpg, jpeg, png, gif";
+                    hasError = true;
+                }
+            }
+
+            if (String.IsNullOrEmpty(tencontroller))
+            {
+                ViewData["LoiTenController"] = "Tên Controller của loại sản phẩm không được bỏ trống";
+                hasError = true;
+            }
+
+            if (hasError)
+                return View();
+            else
+            {
+                LSP.TenLoaiSanPham = tenloaisanpham;
+                LSP.TenController = tencontroller;
+
+                if(HinhAnh!= null && HinhAnh.ContentLength > 0 )
+                {
+                    string fileName = Path.GetFileName(HinhAnh.FileName);
+                    string path = Path.Combine(Server.MapPath("~/Images/Icon/"), fileName);
+
+                    HinhAnh.SaveAs(path);
+                    LSP.HinhAnh = fileName;
+                }
+
+                Models.LoaiSanPham hasLSP = db.LoaiSanPhams.FirstOrDefault(x => x.TenLoaiSanPham == LSP.TenLoaiSanPham);
+                if (hasLSP == null)
+                {
+                    db.LoaiSanPhams.InsertOnSubmit(LSP);
+                    db.SubmitChanges();
+                    return RedirectToAction("QuanLyLoaiSanPham", "Admin");
+                }
+                else
+                    ViewBag.TB = "Đã có loại sản phẩm này";
+
+                return View();
+            }
         }
     }
 }

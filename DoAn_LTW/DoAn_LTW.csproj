@@ -220,6 +220,8 @@
     <Content Include="Views\SanPham\Sim.cshtml" />
     <Content Include="Views\SanPham\TimKiem.cshtml" />
     <Content Include="Views\SanPham\ViewCart.cshtml" />
+    <Content Include="Views\Admin\QuanLyLoaiSanPham.cshtml" />
+    <Content Include="Views\Admin\ThemLoaiSanPham.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -229,7 +231,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

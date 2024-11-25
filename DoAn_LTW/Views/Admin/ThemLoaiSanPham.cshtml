@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "ThemLoaiSanPham";
+    Layout = "~/Views/Share/LayoutAdmin.cshtml";
+}
+
+<h2>Thêm loại sản phẩm</h2>
+<br />
+
+@using (Html.BeginForm("ThemLoaiSanPham", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    {
+        <div>
+            @Html.TextBox("TenLoaiSanPham", "", new
+        {
+           @class = "form-control",
+           @placeholder = "Nhập Tên loại sản phẩm mới"
+            }) @ViewData["LoiTenLoaiSanPham"]
+        </div>
+        <div>
+            @Html.TextBox("TenController", "", new
+        {
+           @class = "form-control",
+           @placeholder = "Nhập Tên Controller của loại sản phẩm"
+            }) @ViewData["LoiTenController"]
+        </div>
+        <div>
+            <label>Chọn Hình ảnh:</label>
+            <input type="file" name="HinhAnh" class="form-control" />
+            @ViewData["LoiHinhAnh"]
+        </div>
+    }
+    <div>@ViewBag.TB</div>
+    <br />
+    <button type="submit" class="btn btn-primary">Thêm loại sản phẩm</button>
+}
+
