@@ -25,7 +25,7 @@ CREATE TABLE SanPham
     TenSanPham NVARCHAR(255) NOT NULL,
     Gia DECIMAL(10, 2) NOT NULL,
 	MaThuongHieu INT NOT NULL,
-    MoTa  NVARCHAR(255),
+    MoTa  NVARCHAR(MAX),
     HinhAnh NVARCHAR(255),
     SoLuongTonKho INT,
 	MaLoaiSanPham INT,

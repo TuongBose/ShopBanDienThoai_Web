@@ -52,6 +52,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Sản phẩm</a>
                 </li>
+                @if(TaiKhoan != null && TaiKhoan.ROLENAME == true)
+                {
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("TrangChuAdmin", "TrangChu")">Quản lý</a>
+                </li>
+                }
             </ul>
         </div>
         <div class="col-3">

@@ -1,9 +1,68 @@
-﻿@model DoAn_LTW.Models.SanPham
+﻿@model DoAn_LTW.Models.SanPham_Feedback
+
+@{
+    DoAn_LTW.Models.ACCOUNT TaiKhoan = Session["Account"] as DoAn_LTW.Models.ACCOUNT;
+}
 
 @{
     ViewBag.Title = "Chi tiết sản phẩm";
     Layout = "~/Views/Share/LayoutUser.cshtml";
 }
+
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+
+<style>
+    #starRating {
+        font-size: 24px;
+        color: #ccc; /* Màu mặc định cho ngôi sao */
+        cursor: pointer;
+    }
+
+        #starRating .star:hover,
+        #starRating .star.selected {
+            color: #f5c518; /* Màu vàng khi được chọn hoặc hover */
+        }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const stars = document.querySelectorAll("#starRating .star");
+        const hiddenInput = document.getElementById("SoSao");
+
+        stars.forEach(star => {
+            // Khi hover, hiển thị các ngôi sao từ đầu tới vị trí hover
+            star.addEventListener("mouseover", function () {
+                resetStars(); // Xóa trạng thái trước
+                highlightStars(this.dataset.value);
+            });
+
+            // Khi click, lưu số sao vào input ẩn
+            star.addEventListener("click", function () {
+                hiddenInput.value = this.dataset.value; // Gán giá trị số sao vào input ẩn
+            });
+
+            // Khi rời chuột, chỉ giữ trạng thái đã chọn
+            star.addEventListener("mouseout", function () {
+                resetStars();
+                highlightStars(hiddenInput.value); // Hiển thị lại số sao đã chọn
+            });
+        });
+
+        // Xóa màu của tất cả ngôi sao
+        function resetStars() {
+            stars.forEach(star => star.classList.remove("selected"));
+        }
+
+        // Hiển thị màu cho các ngôi sao từ 1 đến `value`
+        function highlightStars(value) {
+            for (let i = 0; i < value; i++) {
+                stars[i].classList.add("selected");
+            }
+        }
+    });
+</script>
 
 <div class="container">
     <h2 class="text-center">CHI TIẾT SẢN PHẨM</h2>
@@ -11,7 +70,7 @@
     <div class="row mb-4">
         <!-- Product Image -->
         <div class="col-md-4">
-            <img src="@Url.Content("~/images2/images/" + Model.HinhAnh)" class="img-fluid" style="width: 300px; height: 300px;" alt="@Model.TenSanPham" />
+            <img src="@Url.Content("~/images2/images/" + Model.SanPham.HinhAnh)" class="img-fluid" style="width: 300px; height: 300px;" alt="@Model.SanPham.TenSanPham" />
         </div>
 
         <!-- Product Details -->
@@ -19,42 +78,72 @@
             <table class="table table-bordered">
                 <tr>
                     <th>Tên sản phẩm</th>
-                    <td>@Model.TenSanPham</td>
+                    <td>@Model.SanPham.TenSanPham</td>
                 </tr>
                 <tr>
                     <th>Loại sản phẩm</th>
-                    <td>@Model.LoaiSanPham.TenLoaiSanPham</td>
+                    <td>@Model.SanPham.LoaiSanPham.TenLoaiSanPham</td>
                 </tr>
                 <tr>
                     <th>Thương hiệu</th>
-                    <td>@Model.ThuongHieu.TenThuongHieu</td>
-                </tr>
-                <tr>
-                    <th>Mô tả</th>
-                    <td>@Model.MoTa</td>
+                    <td>@Model.SanPham.ThuongHieu.TenThuongHieu</td>
                 </tr>
                 <tr>
                     <th>Giá bán</th>
-                    <td><span style="color: red; font-weight: bold;">@String.Format("{0:#.000 VND}", Model.Gia)</span></td>
+                    <td><span style="color: red; font-weight: bold;">@String.Format("{0:#.000 VND}", Model.SanPham.Gia)</span></td>
                 </tr>
                 <tr>
                     <th>Số lượng tồn kho</th>
-                    <td>@Model.SoLuongTonKho</td>
+                    <td>@Model.SanPham.SoLuongTonKho</td>
                 </tr>
             </table>
 
             <div>
                 <!-- Button mua ngay -->
-                <a href="@Url.Action("MuaNgay", "DienThoai", new { msp = Model.MaSanPham })" class="btn btn-primary">
+                <a href="@Url.Action("MuaNgay", "DienThoai", new { msp = Model.SanPham.MaSanPham })" class="btn btn-primary">
                     MUA NGAY
                 </a>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <!-- Button thêm vào giỏ hàng -->
-                <a href="@Url.Action("AddToCart", "SanPham", new { msp = Model.MaSanPham, soLuong = 1 })" class="btn btn-success">
+                <a href="@Url.Action("AddToCart", "SanPham", new { msp = Model.SanPham.MaSanPham, soLuong = 1 })" class="btn btn-success">
                     THÊM VÀO GIỎ HÀNG
                 </a>
             </div>
         </div>
     </div>
+
+    <!-- Feedback -->
+    <h2>Đánh giá sản phẩm</h2>
+    <div id="starRating">
+        <i class="star far fa-star" data-value="1"></i>
+        <i class="star far fa-star" data-value="2"></i>
+        <i class="star far fa-star" data-value="3"></i>
+        <i class="star far fa-star" data-value="4"></i>
+        <i class="star far fa-star" data-value="5"></i>
+    </div>
+
+    @using (Html.BeginForm("Feedback", "SanPham", new { @masanpham = Model.SanPham.MaSanPham, @userid = (int?)null }))
+    {
+        <input type="hidden" id="SoSao" name="SoSao" value="0" />
+
+        @Html.TextBox("DanhGia", "", new
+        {
+            @class = "form-control",
+            @placeholder = "Chia sẻ đánh giá của bạn về sản phẩm nhé"
+        })
+        <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+    }
+    <br />
+    <br />
+
+    @foreach (var item in Model.Feedbacks)
+    {
+        <div>
+            <hr />
+            <h3>@item.FullName</h3>
+            <i class="star far fa-star" data-value="5">@item.SoSao</i>
+            <p>@item.NoiDung</p>
+        </div>
+    }
 </div>

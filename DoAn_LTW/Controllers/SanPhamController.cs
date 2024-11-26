@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,8 +16,30 @@ namespace DoAn_LTW.Controllers
 
         public ActionResult XemChiTiet(int msp)
         {
-            SanPham sanpham = db.SanPhams.SingleOrDefault(sp => sp.MaSanPham == msp);
-            return View(sanpham);
+            var sanpham = db.SanPhams.SingleOrDefault(sp => sp.MaSanPham == msp);
+
+            var list_feedback = (
+                from fb in db.feedbacks
+                join ac in db.ACCOUNTs on fb.USERID equals ac.USERID
+                where fb.MaSanPham == msp
+                select new Models.Feedback
+                {
+                    FeedbackID = fb.FeedbackID,
+                    USERID = fb.USERID,
+                    NoiDung = fb.NoiDung,
+                    SoSao = fb.SoSao,
+                    MaSanPham = fb.MaSanPham,
+                    FullName = ac.FULLNAME
+                })
+                .ToList();
+
+            var list_sanpham_feedback = new Models.SanPham_Feedback
+            {
+                SanPham = sanpham,
+                Feedbacks = list_feedback
+            };
+
+            return View(list_sanpham_feedback);
         }
 
         public ActionResult DienThoai(int maloaisanpham, int? MaThuongHieu)
@@ -90,7 +114,7 @@ namespace DoAn_LTW.Controllers
             var list_maytinhbang_thuonghieu = new Models.SanPham_ThuongHieu
             {
                 DanhSachSanPham = list_ALL_maytinhbang,
-                DanhSachThuongHieu=list_thuonghieu,
+                DanhSachThuongHieu = list_thuonghieu,
                 DanhSachSanPham_ThuongHieu = list_sanpham_thuonghieu
             };
 
@@ -348,6 +372,42 @@ namespace DoAn_LTW.Controllers
                     .ToList();
 
                 return View(searchResults);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Feedback(FormCollection Data, Models.feedback FB, int masanpham, int? userid)
+        {
+            var sosao = int.Parse(Data["SoSao"]);
+            var danhgia = Data["DanhGia"];
+            var Userid = userid;
+            var Masanpham = masanpham;
+
+            bool hasError = false;
+
+            if (sosao == 0)
+            {
+                ViewData["LoiSoSao"] = "";
+                hasError = true;
+            }
+            if (String.IsNullOrEmpty(danhgia))
+            {
+                ViewData["LoiDanhGia"] = "";
+                hasError = true;
+            }
+
+            if (hasError)
+                return RedirectToAction("XemChiTiet", "SanPham", new { @msp = masanpham });
+            else
+            {
+                FB.USERID = userid;
+                FB.NoiDung = danhgia;
+                FB.SoSao = sosao;
+                FB.MaSanPham = masanpham;
+
+                db.feedbacks.InsertOnSubmit(FB);
+                db.SubmitChanges();
+                return RedirectToAction("XemChiTiet", "SanPham", new { @msp = masanpham });
             }
         }
     }

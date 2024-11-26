@@ -66,7 +66,7 @@
       <Column Name="TenSanPham" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="Gia" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
       <Column Name="MaThuongHieu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="MoTa" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="MoTa" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="HinhAnh" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="SoLuongTonKho" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="MaLoaiSanPham" Type="System.Int32" DbType="Int" CanBeNull="true" />

@@ -163,11 +163,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Models\Feedback.cs" />
     <Compile Include="Models\QLDT.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>QLDT.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\SanPham_Feedback.cs" />
     <Compile Include="Models\SanPham_ThuongHieu.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
