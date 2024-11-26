@@ -1,0 +1,65 @@
+﻿@model DoAn_LTW.Models.SanPham
+
+@{
+    ViewBag.Title = "Xóa sản phẩm";
+    Layout = "~/Views/Share/LayoutAdmin.cshtml";
+}
+
+<h2 class="text-danger">Xóa sản phẩm</h2>
+<div class="card shadow p-4">
+    <h4 class="text-warning">Thông tin sản phẩm</h4>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3 font-weight-bold">
+            Tên sản phẩm
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.TenSanPham)
+        </dd>
+
+        <dt class="col-sm-3 font-weight-bold">
+            Giá
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Gia)
+        </dd>
+
+        <dt class="col-sm-3 font-weight-bold">
+            Thương hiệu
+        </dt>
+        <dd class="col-sm-9">
+            @Model.ThuongHieu.TenThuongHieu <!-- Hiển thị tên thương hiệu -->
+        </dd>
+
+        <dt class="col-sm-3 font-weight-bold">
+            Loại sản phẩm
+        </dt>
+        <dd class="col-sm-9">
+            @Model.LoaiSanPham.TenLoaiSanPham <!-- Hiển thị tên loại sản phẩm -->
+        </dd>
+
+        <dt class="col-sm-3 font-weight-bold">
+            Hình ảnh
+        </dt>
+        <dd class="col-sm-9">
+            <img src="@Url.Content("~/images2/images/" + Model.HinhAnh)" alt="Hình ảnh sản phẩm" class="img-thumbnail" style="max-width: 200px;" />
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions text-center">
+            <input type="submit" value="Xác nhận xóa" class="btn btn-danger btn-lg" /> |
+            @Html.ActionLink("Quay lại danh sách", "quanLySanPham", null, new { @class = "btn btn-secondary btn-lg" })
+        </div>
+    }
+</div>

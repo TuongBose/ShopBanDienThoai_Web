@@ -1,0 +1,71 @@
+﻿@model DoAn_LTW.Models.SanPham
+
+@{
+    ViewBag.Title = "Chỉnh sửa sản phẩm";
+    Layout = "~/Views/Share/LayoutAdmin.cshtml";
+}
+
+<h2 class="text-primary">Chỉnh sửa sản phẩm</h2>
+
+@using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card shadow p-4">
+        <h4 class="text-warning">Thông tin sản phẩm</h4>
+        <hr />
+
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+        @Html.HiddenFor(model => model.MaSanPham)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenSanPham, "Tên sản phẩm", htmlAttributes: new { @class = "font-weight-bold" })
+            @Html.EditorFor(model => model.TenSanPham, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TenSanPham, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Gia, "Giá sản phẩm", htmlAttributes: new { @class = "font-weight-bold" })
+            @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Gia, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaThuongHieu, "Thương hiệu", htmlAttributes: new { @class = "font-weight-bold" })
+            @Html.DropDownList("MaThuongHieu", (SelectList)ViewBag.ThuongHieuList, "Chọn Thương Hiệu", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MaThuongHieu, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MoTa, "Mô tả sản phẩm", htmlAttributes: new { @class = "font-weight-bold" })
+            @Html.TextAreaFor(model => model.MoTa, new { @class = "form-control", rows = 5 })
+            @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Hình ảnh sản phẩm", htmlAttributes: new { @class = "font-weight-bold" })
+            <div class="mb-2">
+                <img src="@Url.Content("~/Images/HinhAnhSP" + Model.HinhAnh)" alt="Hình ảnh hiện tại" class="img-thumbnail" style="max-width: 200px;" />
+            </div>
+            <input type="file" name="uploadHinhAnh" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SoLuongTonKho, "Số lượng tồn kho", htmlAttributes: new { @class = "font-weight-bold" })
+            @Html.EditorFor(model => model.SoLuongTonKho, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SoLuongTonKho, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaLoaiSanPham, "Loại sản phẩm", htmlAttributes: new { @class = "font-weight-bold" })
+            @Html.DropDownList("MaLoaiSanPham", (SelectList)ViewBag.LoaiSanPhamList, "Chọn Loại Sản Phẩm", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MaLoaiSanPham, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group text-center">
+            <input type="submit" value="Lưu thay đổi" class="btn btn-primary btn-lg" />
+            @Html.ActionLink("Quay lại danh sách", "QuanLySanPham", "Admin", null, new { @class = "btn btn-secondary btn-lg ml-2" })
+        </div>
+    </div>
+}

@@ -1,0 +1,51 @@
+﻿@model DoAn_LTW.Models.SanPham
+
+@{
+    ViewBag.Title = "Chi Tiết Sản Phẩm";
+    Layout = "~/Views/Share/LayoutAdmin.cshtml";
+}
+
+<h2 class="text-center">Chi Tiết Sản Phẩm</h2>
+
+<div class="container">
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Mã Sản Phẩm</th>
+            <td>@Model.MaSanPham</td>
+        </tr>
+        <tr>
+            <th>Tên Sản Phẩm</th>
+            <td>@Model.TenSanPham</td>
+        </tr>
+        <tr>
+            <th>Hình Ảnh</th>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.HinhAnh))
+                {
+                    <img src="@Url.Content("~/Images/HinhAnhSP/" + Model.HinhAnh)" alt="@Model.TenSanPham" class="img-fluid" style="max-width: 200px;" />
+                }
+                else
+                {
+                    <span>Không có hình ảnh</span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <th>Giá</th>
+            <td>@Model.Gia.ToString("C")</td>
+        </tr>
+        <tr>
+            <th>Mô Tả</th>
+            <td>@Model.MoTa</td>
+        </tr>
+        <tr>
+            <th>Số Lượng Tồn Kho</th>
+            <td>@Model.SoLuongTonKho</td>
+        </tr>
+    </table>
+
+    <div class="text-center">
+        <a href="@Url.Action("QuanLySanPham", "Admin")" class="btn btn-secondary">Quay Lại</a>
+    </div>
+</div>
+

@@ -152,7 +152,7 @@
             @foreach (var item in Model.Items)
             {
                 <tr>
-                    <td><img src="@Url.Content("~/images2/images/" + item.HinhAnh)" alt="@item.TenSanPham" class="cart-item-image" /></td>
+                    <td><img src="@Url.Content("~/Images/HinhAnhSP/" + item.HinhAnh)" alt="@item.TenSanPham" class="cart-item-image" /></td>
                     <td>@item.TenSanPham</td>
                     <td>
                         @using (Html.BeginForm("UpdateCart", "SanPham", FormMethod.Post))

@@ -6,18 +6,33 @@
 
 <h2>Quản lý loại sản phẩm</h2>
 <br />
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
 <a href="@Url.Action("ThemLoaiSanPham", "Admin")" class="btn btn-primary">Thêm mới loại sản phẩm</a>
 <br />
 <br />
 
-<table class="table">
-    <tr>
+<table class="table table-bordered table-striped table-hover">
+    <tr class="table table-dark">
         <th>Tên loại sản phẩm</th>
+        <th>Hình Ảnh</th>
+        <th>Hành Động</th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>@item.TenLoaiSanPham</td>
+            <td>
+                <img src="~/Images/Icon/@item.HinhAnh" style="width: 100px; height: 100px;" />
+            </td>
+            <td>
+                <a href="@Url.Action("SuaLoaiSanPham", "Admin", new { @id = item.MaLoaiSanPham }, null)" class="btn btn-primary">Sửa</a>
+                <a href="@Url.Action("XoaLoaiSanPham", "Admin", new { @id = item.MaLoaiSanPham }, null)" class="btn btn-danger">Xóa</a>
+            </td>
         </tr>
     }
 </table>

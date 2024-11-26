@@ -1,0 +1,41 @@
+﻿@model DoAn_LTW.Models.LoaiSanPham
+@{
+    ViewBag.Title = "SuaLoaiSanPham";
+    Layout = "~/Views/Share/LayoutAdmin.cshtml";
+}
+
+<h2>Sửa loại sản phẩm</h2>
+
+@using (Html.BeginForm("SuaLoaiSanPham", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="card shadow p-4">
+        <h3>Thông tin loại sản phẩm</h3>
+        <hr />
+        @Html.ValidationSummary()
+        @Html.Hidden("MaLoaiSanPham", Model.MaLoaiSanPham)
+        <div class="form-group">
+            <div>Tên loại sản phẩm</div>
+            @Html.TextBox("TenLoaiSanPham", Model.TenLoaiSanPham, new
+       {
+           @class = "form-control",
+           @placeholder = "Nhập tên loại sản phẩm"
+       }) @ViewData["LoiTenLoaiSanPham"]
+</div>
+<div class="form-group">
+    <div>Tên Controller</div>
+    @Html.TextBox("TenController", Model.TenController, new
+{
+   @class = "form-control",
+   @placeholder = "Nhập tên Controller"
+}) @ViewData["LoiTenController"]
+</div>
+<div class="form-group">
+    <label>Chọn Hình ảnh:</label>
+    <input type="file" name="HinhAnh" class="form-control" />
+    @ViewData["LoiHinhAnh"]
+</div>
+<div>@ViewBag.TB</div>
+<br />
+<button class="btn btn-primary">Thay đổi</button>
+</div>
+}

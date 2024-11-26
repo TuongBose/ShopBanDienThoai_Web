@@ -19,17 +19,17 @@ namespace DoAn_LTW.Controllers
             var sanpham = db.SanPhams.SingleOrDefault(sp => sp.MaSanPham == msp);
 
             var list_feedback = (
-                from fb in db.feedbacks
-                join ac in db.ACCOUNTs on fb.USERID equals ac.USERID
-                where fb.MaSanPham == msp
+                from FB in db.feedbacks
+                join AC in db.ACCOUNTs on FB.USERID equals AC.USERID
+                where FB.MaSanPham == msp
                 select new Models.Feedback
                 {
-                    FeedbackID = fb.FeedbackID,
-                    USERID = fb.USERID,
-                    NoiDung = fb.NoiDung,
-                    SoSao = fb.SoSao,
-                    MaSanPham = fb.MaSanPham,
-                    FullName = ac.FULLNAME
+                    FeedbackID = FB.FeedbackID,
+                    USERID = FB.USERID,
+                    NoiDung = FB.NoiDung,
+                    SoSao = FB.SoSao,
+                    MaSanPham = FB.MaSanPham,
+                    FullName = AC.FULLNAME
                 })
                 .ToList();
 
@@ -298,7 +298,7 @@ namespace DoAn_LTW.Controllers
                 ShoppingCart cart = GetCart();
                 cart.AddToCart(sanPham, soLuong);
             }
-            return RedirectToAction("ViewCart");
+            return RedirectToAction("TrangChu", "TrangChu");
         }
 
         // Xem giỏ hàng
@@ -361,7 +361,6 @@ namespace DoAn_LTW.Controllers
         {
             if (string.IsNullOrEmpty(query))
             {
-
                 var allProducts = db.SanPhams.ToList();
                 return View(allProducts);
             }
