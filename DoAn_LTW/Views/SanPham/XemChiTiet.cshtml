@@ -97,52 +97,106 @@
                     <td>@Model.SanPham.SoLuongTonKho</td>
                 </tr>
             </table>
+            @if (TaiKhoan != null)
+            {
+                <div>
+                    <!-- Button mua ngay -->
+                    <a href="@Url.Action("MuaNgay", "DienThoai", new { msp = Model.SanPham.MaSanPham })" class="btn btn-primary">
+                        MUA NGAY
+                    </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-            <div>
-                <!-- Button mua ngay -->
-                <a href="@Url.Action("MuaNgay", "DienThoai", new { msp = Model.SanPham.MaSanPham })" class="btn btn-primary">
-                    MUA NGAY
-                </a>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <!-- Button thêm vào giỏ hàng -->
+                    <a href="@Url.Action("AddToCart", "SanPham", new { msp = Model.SanPham.MaSanPham, soLuong = 1 })" class="btn btn-success">
+                        THÊM VÀO GIỎ HÀNG
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <!-- Button mua ngay -->
+                    <a href="@Url.Action("DangNhap", "NguoiDung", new { msp = Model.SanPham.MaSanPham })" class="btn btn-primary">
+                        MUA NGAY
+                    </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <!-- Button thêm vào giỏ hàng -->
-                <a href="@Url.Action("AddToCart", "SanPham", new { msp = Model.SanPham.MaSanPham, soLuong = 1 })" class="btn btn-success">
-                    THÊM VÀO GIỎ HÀNG
-                </a>
-            </div>
+                    <!-- Button thêm vào giỏ hàng -->
+                    <a href="@Url.Action("DangNhap", "NguoiDung", new { msp = Model.SanPham.MaSanPham, soLuong = 1 })" class="btn btn-success">
+                        THÊM VÀO GIỎ HÀNG
+                    </a>
+                </div>
+            }
+
         </div>
     </div>
 
     <!-- Feedback -->
-    <h2>Đánh giá sản phẩm</h2>
-    <div id="starRating">
-        <i class="star far fa-star" data-value="1"></i>
-        <i class="star far fa-star" data-value="2"></i>
-        <i class="star far fa-star" data-value="3"></i>
-        <i class="star far fa-star" data-value="4"></i>
-        <i class="star far fa-star" data-value="5"></i>
-    </div>
-
-    @using (Html.BeginForm("Feedback", "SanPham", new { @masanpham = Model.SanPham.MaSanPham, @userid = (int?)null }))
+    @if (TaiKhoan != null)
     {
-        <input type="hidden" id="SoSao" name="SoSao" value="0" />
+        <div class="card shadow p-4">
+            <h2>Đánh giá sản phẩm</h2>
+            <div id="starRating">
+                <i class="star far fa-star" data-value="1"></i>
+                <i class="star far fa-star" data-value="2"></i>
+                <i class="star far fa-star" data-value="3"></i>
+                <i class="star far fa-star" data-value="4"></i>
+                <i class="star far fa-star" data-value="5"></i>
+            </div>
 
-        @Html.TextBox("DanhGia", "", new
-        {
-            @class = "form-control",
-            @placeholder = "Chia sẻ đánh giá của bạn về sản phẩm nhé"
-        })
-        <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+            @using (Html.BeginForm("Feedback", "SanPham", new { @masanpham = Model.SanPham.MaSanPham, @userid = TaiKhoan.USERID }))
+            {
+
+                <input type="hidden" id="SoSao" name="SoSao" value="0" />
+
+                @Html.TextBox("DanhGia", "", new
+                {
+                    @class = "form-control",
+                    @placeholder = "Chia sẻ đánh giá của bạn về sản phẩm nhé"
+                })
+                <br />
+                <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="card shadow p-4">
+            <h2>Đánh giá sản phẩm</h2>
+            <div id="starRating">
+                <i class="star far fa-star" data-value="1"></i>
+                <i class="star far fa-star" data-value="2"></i>
+                <i class="star far fa-star" data-value="3"></i>
+                <i class="star far fa-star" data-value="4"></i>
+                <i class="star far fa-star" data-value="5"></i>
+            </div>
+
+                <input type="hidden" id="SoSao" name="SoSao" value="0" />
+
+                @Html.TextBox("DanhGia", "", new
+                {
+                    @class = "form-control",
+                    @placeholder = "Chia sẻ đánh giá của bạn về sản phẩm nhé"
+                })
+                <br />
+                <a href="@Url.Action("DangNhap", "NguoiDung")">
+                    <button class="btn btn-primary">Gửi đánh giá</button>
+                </a>
+        </div>
     }
     <br />
     <br />
 
     @foreach (var item in Model.Feedbacks)
     {
-        <div>
-            <hr />
+        <div class="card shadow p-4">
             <h3>@item.FullName</h3>
-            <i class="star far fa-star" data-value="5">@item.SoSao</i>
+            <div>
+                @for (int i = 0; i < item.SoSao; i++)
+                {
+                    <i class="star far fa-star" data-value="@i"></i>
+                }
+            </div>
             <p>@item.NoiDung</p>
         </div>
     }

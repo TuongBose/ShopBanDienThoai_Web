@@ -9,8 +9,9 @@
 
 @using (Html.BeginForm("ThemLoaiSanPham", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.ValidationSummary(true)
-    {
+    <div class="card shadow p-4">
+        <h3>Thông tin loại sản phẩm</h3>
+        @Html.ValidationSummary(true)
         <div>
             @Html.TextBox("TenLoaiSanPham", "", new
         {
@@ -30,9 +31,10 @@
             <input type="file" name="HinhAnh" class="form-control" />
             @ViewData["LoiHinhAnh"]
         </div>
-    }
-    <div>@ViewBag.TB</div>
-    <br />
-    <button type="submit" class="btn btn-primary">Thêm loại sản phẩm</button>
+
+        <div>@ViewBag.TB</div>
+        <br />
+        <button type="submit" class="btn btn-primary">Thêm loại sản phẩm</button>
+    </div>
 }
 

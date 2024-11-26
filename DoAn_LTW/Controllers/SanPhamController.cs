@@ -375,7 +375,7 @@ namespace DoAn_LTW.Controllers
         }
 
         [HttpPost]
-        public ActionResult Feedback(FormCollection Data, Models.feedback FB, int masanpham, int? userid)
+        public ActionResult Feedback(FormCollection Data, Models.feedback FB, int masanpham, int userid)
         {
             var sosao = int.Parse(Data["SoSao"]);
             var danhgia = Data["DanhGia"];
@@ -386,12 +386,7 @@ namespace DoAn_LTW.Controllers
 
             if (sosao == 0)
             {
-                ViewData["LoiSoSao"] = "";
-                hasError = true;
-            }
-            if (String.IsNullOrEmpty(danhgia))
-            {
-                ViewData["LoiDanhGia"] = "";
+                ViewData["LoiSoSao"] = "Số sao không được bỏ trống";
                 hasError = true;
             }
 
