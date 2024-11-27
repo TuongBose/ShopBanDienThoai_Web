@@ -4,29 +4,81 @@
     Layout = "~/Views/Share/LayoutUser.cshtml";
 }
 
-<h2>DangNhap</h2>
-
-@using (Html.BeginForm())
-{
-
-    @Html.ValidationSummary(true)
-    {
-        <div>
-            @Html.TextBox("UserName", "", new
-       {
-           @class = "form-control",
-           @placeholder = "Nhập Tên đăng nhập"
-       })   @ViewData["LoiUserName"]
-        </div>
-        <div>
-            @Html.TextBox("Pass", "", new
-       {
-           @class = "form-control",
-           @placeholder = "Nhập mật khẩu"
-       }) @ViewData["LoiPass"]
-        </div>
+<style>
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Căn giữa theo chiều dọc */
+        background-color: #f8f9fa; /* Màu nền nhạt */
     }
-<div>@ViewBag.ThongBao</div>
-    <button type="submit">Đăng Nhập</button>
-}
-    <a href="@Url.Action("DangKy","NguoiDung")">Chưa có tài khoản? Đăng ký</a>
+
+    .login-form {
+        width: 400px; /* Chiều rộng của form */
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+        .login-form h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 15px;
+        }
+
+        .login-form .btn {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .login-form .text-center {
+            margin-top: 10px;
+        }
+
+        .login-form .text-danger {
+            font-size: 12px;
+            color: red;
+        }
+</style>
+
+<div class="content">
+    <div class="card shadow p-4 login-form">
+        <h1>Đăng Nhập</h1>
+        <hr />
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                @Html.TextBox("UserName", "", new
+               {
+                   @class = "form-control",
+                   @placeholder = "Nhập Tên đăng nhập"
+               })
+                <span class="text-danger">@ViewData["LoiUserName"]</span>
+            </div>
+            <div class="form-group">
+                @Html.TextBox("Pass", "", new
+               {
+                   @class = "form-control",
+                   @placeholder = "Nhập mật khẩu"
+               })
+                <span class="text-danger">@ViewData["LoiPass"]</span>
+            </div>
+            <div>@ViewBag.ThongBao</div>
+            <br />
+            <button type="submit" class="btn btn-primary btn-block">Đăng Nhập</button>
+        }
+    <div class="text-center mt-3">
+        <a href="@Url.Action("DangKy", "NguoiDung")">Chưa có tài khoản? Đăng ký</a> <br />
+        <a href="@Url.Action("QuenMatKhau", "NguoiDung")">Quên mật khẩu</a>
+    </div>
+    </div>
+</div>
+

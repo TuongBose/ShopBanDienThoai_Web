@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "SuaThongTinTaiKhoan";
+    Layout = "~/Views/Share/LayoutUser.cshtml";
+    DoAn_LTW.Models.ACCOUNT TaiKhoan = Session["Account"] as DoAn_LTW.Models.ACCOUNT;
+}
+
+<style>
+    /* Slidebar styling */
+    .slidebar {
+        width: 250px;
+        background-color: #343a40;
+        color: #fff;
+        height: 100vh;
+        overflow-y: auto;
+        padding: 20px;
+    }
+
+        .slidebar a {
+            display: block;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 0;
+            font-size: 16px;
+        }
+
+            .slidebar a:hover {
+                background-color: #495057;
+            }
+
+    /* Nội dung chính */
+    .content {
+        flex: 1;
+        padding: 20px;
+    }
+</style>
+
+<div style="display: flex;">
+    <!-- Slidebar -->
+    <div class="slidebar">
+        <h4 class="text-center text-light">Tài khoản</h4>
+        <a href="@Url.Action("ThongTinTaiKhoan", "NguoiDung")">Thông tin Tài khoản</a>
+        <a href="@Url.Action("SuaThongTinTaiKhoan", "NguoiDung")">Sửa Thông tin tài khoản</a>
+        <a href="@Url.Action("DoiMatKhau", "NguoiDung")">Đổi mật khẩu</a>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="content">
+        <div class="card shadow p-4">
+            <h1>Sửa thông tin tài khoản</h1>
+            <hr />
+            @using (Html.BeginForm())
+            {
+                @Html.Hidden("UserName", TaiKhoan.USERNAME)
+            <table>
+                <tr>
+                    <th>Họ tên</th>
+                    <th>Số điện thoại</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            @Html.TextBox("FullName", TaiKhoan.FULLNAME, new
+                       {
+                           @style = "width: 300px; height: 50px; border: 1px solid #ccc; border-radius: 4px; padding: 5px;",
+                           @placeholder = "Nhập Họ tên"
+                       }) @ViewData["LoiFullName"]
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            @Html.TextBox("SDT", TaiKhoan.SODIENTHOAI, new
+                       {
+                           @style = "width: 300px; height: 50px; border: 1px solid #ccc; border-radius: 4px; padding: 5px;",
+                           @placeholder = "Nhập số điện thoại"
+                       }) @ViewData["LoiSDT"]
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <th>Địa chỉ</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+                            @Html.TextBox("Email", TaiKhoan.EMAIL, new
+                       {
+                           @class = "form-control",
+                           @placeholder = "Nhập địa chỉ"
+                       }) @ViewData["LoiEmail"]
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            @Html.TextBox("DiaChi", TaiKhoan.DIACHI, new
+                       {
+                           @class = "form-control",
+                           @placeholder = "Nhập địa chỉ"
+                       }) @ViewData["LoiDiaChi"]
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            @ViewBag.TB
+            <button type="submit" class="btn btn-primary">Xác nhận</button>
+            }
+        </div>
+    </div>
+</div>

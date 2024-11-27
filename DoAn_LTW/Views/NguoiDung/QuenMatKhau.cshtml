@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "QuenMatKhau";
+    Layout = "~/Views/Share/LayoutUser.cshtml";
+}
+
+<style>
+    /* Slidebar styling */
+    .slidebar {
+        width: 250px;
+        background-color: #343a40;
+        color: #fff;
+        height: 100vh;
+        overflow-y: auto;
+        padding: 20px;
+    }
+
+        .slidebar a {
+            display: block;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 0;
+            font-size: 16px;
+        }
+
+            .slidebar a:hover {
+                background-color: #495057;
+            }
+
+    /* Nội dung chính */
+    .content {
+        flex: 1;
+        padding: 20px;
+    }
+</style>
+
+<div style="display: flex;">
+    <!-- Slidebar -->
+    <div class="slidebar">
+        <h4 class="text-center text-light">Tài khoản</h4>
+        <p>
+            Gọi hotline để được hỗ trợ
+            <ul>
+                <li>18001519</li>
+                <li>028 6270 6275</li>
+            </ul>
+        </p>
+        <a href="https://www.huit.edu.vn/">Nhắn tin cho fanpage</a>
+        <a href="#">Các câu hỏi thường gặp</a>
+        <a href="@Url.Action("QuenMatKhau", "NguoiDung")">Quên mật khẩu</a>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="content">
+        <div class="card shadow p-4">
+            <h1>Quên mật khẩu</h1>
+            <hr />
+            @using (Html.BeginForm())
+            {
+                <table>
+                    <tr>
+                        <th>Nhập số điện thoại</th>
+                    <tr>
+                        <td>
+                            <div>
+                                @Html.TextBox("SDT", "", new
+                                {
+                                @style = "width: 375px; height: 50px; border: 1px solid #ccc; border-radius: 4px; padding: 5px;",
+                                @placeholder = "Nhập số điện thoại"
+                                }) @ViewData["LoiSDT"]
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                @ViewBag.TB
+                <button type="submit" class="btn btn-primary">Xác nhận</button>
+            }
+        </div>
+
+        <!-- Hiện lại mật khẩu -->
+        @if (ViewBag.TaiKhoan != null)
+        {
+            <div class="card shadow p-4">
+                <h1>Thông tin mật khẩu</h1>
+                <hr />
+                <p>Thông tin mật khẩu của số điện thoại @ViewBag.SDT: @ViewBag.Pass</p>
+            </div>
+        }
+    </div>
+</div>
+

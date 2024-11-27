@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "DoiMatKhau";
+    Layout = "~/Views/Share/LayoutUser.cshtml";
+    DoAn_LTW.Models.ACCOUNT TaiKhoan = Session["Account"] as DoAn_LTW.Models.ACCOUNT;
+}
+
+<style>
+    /* Slidebar styling */
+    .slidebar {
+        width: 250px;
+        background-color: #343a40;
+        color: #fff;
+        height: 100vh;
+        overflow-y: auto;
+        padding: 20px;
+    }
+
+        .slidebar a {
+            display: block;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 0;
+            font-size: 16px;
+        }
+
+            .slidebar a:hover {
+                background-color: #495057;
+            }
+
+    /* Nội dung chính */
+    .content {
+        flex: 1;
+        padding: 20px;
+    }
+</style>
+
+<div style="display: flex;">
+    <!-- Slidebar -->
+    <div class="slidebar">
+        <h4 class="text-center text-light">Tài khoản</h4>
+        <a href="@Url.Action("ThongTinTaiKhoan", "NguoiDung")">Thông tin Tài khoản</a>
+        <a href="@Url.Action("SuaThongTinTaiKhoan", "NguoiDung")">Sửa Thông tin tài khoản</a>
+        <a href="@Url.Action("DoiMatKhau", "NguoiDung")">Đổi mật khẩu</a>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="content">
+        <div class="card shadow p-4">
+            <h1>Đổi mật khẩu</h1>
+            <hr />
+            @using (Html.BeginForm())
+            {
+                @Html.Hidden("UserName", TaiKhoan.USERNAME)
+                <table>
+                    <tr>
+                        <th>Mật khẩu hiện tại</th>
+                        <th>Mật khẩu mới</th>
+                        <th>Nhập lại mật khẩu mới</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.TextBoxFor(model => TaiKhoan.PASS, new
+                       {
+                           @style = "width: 375px; height: 50px; border: 1px solid #ccc; border-radius: 4px; padding: 5px;",
+                           @disabled = "disabled"
+                       })
+                        </td>
+                        <td>
+                            <div>
+                                @Html.TextBox("NewPass", "", new
+                                {
+                                @style = "width: 400px; height: 50px; border: 1px solid #ccc; border-radius: 4px; padding: 5px;",
+                                @placeholder = "Nhập mật khẩu mới"
+                                }) @ViewData["LoiNewPass"]
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                @Html.TextBox("NewPassConfirm", "", new
+                           {
+                               @style = "width: 390px; height: 50px; border: 1px solid #ccc; border-radius: 4px; padding: 5px;",
+                               @placeholder = "Nhập lại mật khẩu mới"
+                           }) @ViewData["LoiNewPassConfirm"]
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br />
+        @ViewBag.TB
+        <button type="submit" class="btn btn-primary">Xác nhận</button>
+    }
+        </div>
+    </div>
+</div>
+
