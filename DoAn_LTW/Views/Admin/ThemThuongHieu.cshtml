@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Thêm Thương Hiệu";
+    Layout = "~/Views/Share/LayoutAdmin.cshtml";
+}
+<h2 class="text-primary">Thêm mới sản phẩm</h2>
+@*<h2>Thêm Thương Hiệu</h2>*@
+
+<form asp-action="ThemThuongHieu" method="post" class="mt-3">
+    <div class="mb-3">
+        <label for="TenThuongHieu" class="form-label">Tên Thương Hiệu</label>
+        <input type="text" class="form-control" id="TenThuongHieu" name="TenThuongHieu" required />
+    </div>
+    <button type="submit" class="btn btn-success">Thêm</button>
+    <a href="@Url.Action("QuanLyThuongHieu", "Admin")" class="btn btn-secondary">Hủy</a>
+</form>

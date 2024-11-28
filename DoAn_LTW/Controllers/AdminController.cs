@@ -85,6 +85,9 @@ namespace DoAn_LTW.Controllers
         //    }
         //    return RedirectToAction("QuanLySanPham");
         //}
+        //hien thi danh sach cac thuong hieu
+        
+
 
         public ActionResult QuanLyLoaiSanPham()
         {
@@ -482,5 +485,88 @@ namespace DoAn_LTW.Controllers
 
             return RedirectToAction("QuanLySanPham", "Admin");
         }
+        //quan ly thuong hieu
+        public ActionResult QuanLyThuongHieu()
+        {
+            var thuongHieus = db.ThuongHieus.ToList();
+            return View(thuongHieus);
+        }
+
+        [HttpGet]
+        public ActionResult ThemThuongHieu()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ThemThuongHieu(ThuongHieu thuongHieu)
+        {
+            if (ModelState.IsValid)
+            {
+                //kiem tra xem ten thuong hieu da ton tai chua
+                var existingThuongHieu = db.ThuongHieus.FirstOrDefault(th => th.TenThuongHieu == thuongHieu.TenThuongHieu);
+                if (existingThuongHieu == null)
+                {
+                    db.ThuongHieus.InsertOnSubmit(thuongHieu);
+                    db.SubmitChanges();
+                    TempData["SuccessMessage"] = "Thêm thương hiệu thành công!";
+                    return RedirectToAction("QuanLyThuongHieu");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Tên thương hiệu đã tồn tại!";
+                }
+            }
+            return View(thuongHieu);
+        }
+        //sua thuong hieu
+        [HttpGet]
+        public ActionResult SuaThuongHieu(int id)
+        {
+            var thuongHieu = db.ThuongHieus.FirstOrDefault(th => th.MaThuongHieu == id);
+            if (thuongHieu == null)
+                return HttpNotFound();
+
+            return View(thuongHieu);
+        }
+
+        [HttpPost]
+        public ActionResult SuaThuongHieu(ThuongHieu thuongHieu)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingThuongHieu = db.ThuongHieus.FirstOrDefault(th => th.MaThuongHieu == thuongHieu.MaThuongHieu);
+                if (existingThuongHieu != null)
+                {
+                    existingThuongHieu.TenThuongHieu = thuongHieu.TenThuongHieu;
+                    db.SubmitChanges();
+                    TempData["SuccessMessage"] = "Cập nhật thương hiệu thành công!";
+                    return RedirectToAction("QuanLyThuongHieu");
+                }
+            }
+            return View(thuongHieu);
+        }
+        //xoa thuong hieu
+        public ActionResult XoaThuongHieu(int id)
+        {
+            var thuongHieu = db.ThuongHieus.FirstOrDefault(th => th.MaThuongHieu == id);
+            if (thuongHieu != null)
+            {
+                //kiem tra xem co san pham nao thuoc thuong hieu do khong
+                bool isReferenced = db.SanPhams.Any(sp => sp.MaThuongHieu == id);
+                if (isReferenced)
+                {
+                    TempData["ErrorMessage"] = "Không thể xóa thương hiệu vì nó đang được sử dụng trong sản phẩm.";
+                }
+                else
+                {
+                    db.ThuongHieus.DeleteOnSubmit(thuongHieu);
+                    db.SubmitChanges();
+                    TempData["SuccessMessage"] = "Xóa thương hiệu thành công!";
+                }
+            }
+            return RedirectToAction("QuanLyThuongHieu","Admin");
+        }
+
     }
 }
