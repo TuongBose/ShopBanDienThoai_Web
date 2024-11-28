@@ -293,43 +293,60 @@ namespace DoAn_LTW.Controllers
             var maxId = db.SanPhams.Any() ? db.SanPhams.Max(sp => sp.MaSanPham) : 0;
             sanPham.MaSanPham = maxId + 1; // Gán giá trị tiếp theo
 
-            if (ModelState.IsValid)
+            bool hasError = false;
+
+            if (string.IsNullOrEmpty(sanPham.TenSanPham))
             {
-                // Kiểm tra nếu người dùng đã chọn ảnh
-                if (uploadHinhAnh != null && uploadHinhAnh.ContentLength > 0)
-                {
-                    // Lấy tên tệp của ảnh đã chọn
-                    var fileName = Path.GetFileName(uploadHinhAnh.FileName);
-
-                    // Đường dẫn để lưu ảnh
-                    var path = Path.Combine(Server.MapPath("~/Images/HinhAnhSP"), fileName);
-
-                    // Lưu tên ảnh vào CSDL
-                    sanPham.HinhAnh = fileName;
-
-                    // Nếu bạn muốn lưu ảnh vào thư mục (có thể bỏ qua nếu chỉ muốn lấy tên)
-                    try
-                    {
-                        uploadHinhAnh.SaveAs(path); // Lưu ảnh vào thư mục
-                    }
-                    catch (Exception ex)
-                    {
-                        ModelState.AddModelError("", "Không thể lưu ảnh: " + ex.Message);
-                        return View(sanPham);
-                    }
-                }
-
-                // Lưu sản phẩm vào CSDL
-                db.SanPhams.InsertOnSubmit(sanPham);
-                db.SubmitChanges();
-                return RedirectToAction("QuanLySanPham", "Admin");
+                ViewData["LoiTenSanPham"] = "Tên sản phẩm không được để trống.";
+                hasError = true;
             }
 
-            // Nếu có lỗi, load lại danh sách ComboBox
-            ViewBag.ThuongHieuList = new SelectList(db.ThuongHieus.ToList(), "MaThuongHieu", "TenThuongHieu", sanPham.MaThuongHieu);
-            ViewBag.LoaiSanPhamList = new SelectList(db.LoaiSanPhams.ToList(), "MaLoaiSanPham", "TenLoaiSanPham", sanPham.MaLoaiSanPham);
+            if (uploadHinhAnh == null || uploadHinhAnh.ContentLength == 0)
+            {
+                ViewData["LoiHinhAnh"] = "File hình ảnh không được bỏ trống.";
+                hasError = true;
+            }
+            else
+            {
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                var fileExtension = Path.GetExtension(uploadHinhAnh.FileName).ToLower();
 
-            return View(sanPham);
+                if (!allowedExtensions.Contains(fileExtension))
+                {
+                    ViewData["LoiHinhAnh"] = "Chỉ chấp nhận định dạng file ảnh jpg, jpeg, png, gif.";
+                    hasError = true;
+                }
+            }
+
+            if (hasError)
+            {
+
+                ViewBag.ThuongHieuList = new SelectList(db.ThuongHieus.ToList(), "MaThuongHieu", "TenThuongHieu", sanPham.MaThuongHieu);
+                ViewBag.LoaiSanPhamList = new SelectList(db.LoaiSanPhams.ToList(), "MaLoaiSanPham", "TenLoaiSanPham", sanPham.MaLoaiSanPham);
+                return View(sanPham);
+            }
+
+
+            if (uploadHinhAnh != null && uploadHinhAnh.ContentLength > 0)
+            {
+                string fileName = Path.GetFileName(uploadHinhAnh.FileName);
+                string path = Path.Combine(Server.MapPath("~/Images/HinhAnhSP/"), fileName);
+
+                try
+                {
+                    uploadHinhAnh.SaveAs(path);
+                    sanPham.HinhAnh = fileName;
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Không thể lưu ảnh: " + ex.Message);
+                    return View(sanPham);
+                }
+            }
+
+            db.SanPhams.InsertOnSubmit(sanPham);
+            db.SubmitChanges();
+            return RedirectToAction("QuanLySanPham", "Admin");
         }
 
         // Sửa sản phẩm - GET
@@ -349,25 +366,66 @@ namespace DoAn_LTW.Controllers
         // Sửa sản phẩm - POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(SanPham sanPham)
+        public ActionResult Edit(SanPham sanPham, HttpPostedFileBase uploadHinhAnh)
         {
             if (ModelState.IsValid)
             {
                 var existingSanPham = db.SanPhams.FirstOrDefault(sp => sp.MaSanPham == sanPham.MaSanPham);
                 if (existingSanPham != null)
                 {
+                    // Cập nhật thông tin sản phẩm
                     existingSanPham.TenSanPham = sanPham.TenSanPham;
                     existingSanPham.Gia = sanPham.Gia;
                     existingSanPham.MaThuongHieu = sanPham.MaThuongHieu;
                     existingSanPham.MoTa = sanPham.MoTa;
-                    existingSanPham.HinhAnh = sanPham.HinhAnh;
                     existingSanPham.SoLuongTonKho = sanPham.SoLuongTonKho;
                     existingSanPham.MaLoaiSanPham = sanPham.MaLoaiSanPham;
 
+
+                    if (uploadHinhAnh != null && uploadHinhAnh.ContentLength > 0)
+                    {
+                        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                        var fileExtension = Path.GetExtension(uploadHinhAnh.FileName).ToLower();
+
+                        if (!allowedExtensions.Contains(fileExtension))
+                        {
+                            ModelState.AddModelError("uploadHinhAnh", "Chỉ chấp nhận định dạng file ảnh jpg, jpeg, png, gif.");
+                            return View(sanPham);
+                        }
+
+                        string fileName = Path.GetFileName(uploadHinhAnh.FileName);
+                        string path = Path.Combine(Server.MapPath("~/Images/HinhAnhSP/"), fileName);
+
+                        try
+                        {
+
+                            uploadHinhAnh.SaveAs(path);
+
+
+                            if (!string.IsNullOrEmpty(existingSanPham.HinhAnh))
+                            {
+                                string oldPath = Path.Combine(Server.MapPath("~/Images/HinhAnhSP/"), existingSanPham.HinhAnh);
+                                if (System.IO.File.Exists(oldPath))
+                                {
+                                    System.IO.File.Delete(oldPath);
+                                }
+                            }
+
+
+                            existingSanPham.HinhAnh = fileName;
+                        }
+                        catch (Exception ex)
+                        {
+                            ModelState.AddModelError("", "Không thể lưu ảnh: " + ex.Message);
+                            return View(sanPham);
+                        }
+                    }
+
                     db.SubmitChanges();
+                    return RedirectToAction("QuanLySanPham", "Admin");
                 }
-                return RedirectToAction("QuanLySanPham", "Admin");
             }
+
 
             ViewBag.MaLoaiSanPham = new SelectList(db.LoaiSanPhams, "MaLoaiSanPham", "TenLoaiSanPham", sanPham.MaLoaiSanPham);
             ViewBag.MaThuongHieu = new SelectList(db.ThuongHieus, "MaThuongHieu", "TenThuongHieu", sanPham.MaThuongHieu);
@@ -394,9 +452,19 @@ namespace DoAn_LTW.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
             var sanPham = db.SanPhams.FirstOrDefault(sp => sp.MaSanPham == id);
             if (sanPham != null)
             {
+
+                var feedbacks = db.feedbacks.Where(fb => fb.MaSanPham == id).ToList();
+                if (feedbacks.Any())
+                {
+
+                    db.feedbacks.DeleteAllOnSubmit(feedbacks);
+                }
+
+
                 var isReferenced = db.ChiTietDonHangs.Any(ct => ct.MaSanPham == id);
                 if (isReferenced)
                 {
@@ -405,11 +473,13 @@ namespace DoAn_LTW.Controllers
                 }
                 else
                 {
-                    TempData["ErrorMessage"] = "Xóa thành công.";
+                    TempData["SuccessMessage"] = "Xóa sản phẩm thành công.";
+
                     db.SanPhams.DeleteOnSubmit(sanPham);
                     db.SubmitChanges();
                 }
             }
+
             return RedirectToAction("QuanLySanPham", "Admin");
         }
     }

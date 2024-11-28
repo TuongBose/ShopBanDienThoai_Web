@@ -21,7 +21,7 @@
             @Html.LabelFor(model => model.TenSanPham, "Tên sản phẩm", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TenSanPham, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenSanPham, "", new { @class = "text-danger" })
+                @Html.ValidationMessage("LoiTenSanPham", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -29,7 +29,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Gia, "Giá (VNĐ)", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control", type = "number", min = 0 } })
                 @Html.ValidationMessageFor(model => model.Gia, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -57,7 +57,8 @@
             @Html.Label("Hình ảnh", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input type="file" name="uploadHinhAnh" class="form-control" />
-                <span class="text-muted">Định dạng chấp nhận: .jpg, .png, .jpeg</span>
+                <span class="text-muted">Định dạng chấp nhận: .jpg, .png, .jpeg, .gif</span>
+                @Html.ValidationMessage("LoiHinhAnh", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -65,7 +66,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SoLuongTonKho, "Số lượng tồn kho", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SoLuongTonKho, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.SoLuongTonKho, new { htmlAttributes = new { @class = "form-control", type = "number", min = 0 } })
                 @Html.ValidationMessageFor(model => model.SoLuongTonKho, "", new { @class = "text-danger" })
             </div>
         </div>
