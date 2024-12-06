@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 
 @{ 
@@ -74,6 +74,9 @@
                     <a class="nav-link" href="@Url.Action("ViewCart", "SanPham")">
                         <i class="bi bi-cart"></i>
                         <img src="~/Images/Icon/Bag.png" style="width: 24px; height: 24px;" />Giỏ hàng
+                        <span id="cartItemCount" class="badge bg-danger">
+                            @(Session["CartItemCount"] != null ? Session["CartItemCount"].ToString() : "0")
+                        </span>
                     </a>
                 </li>
                 <!-- Đăng nhập -->
