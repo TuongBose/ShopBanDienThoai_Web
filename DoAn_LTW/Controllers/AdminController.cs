@@ -568,5 +568,19 @@ namespace DoAn_LTW.Controllers
             return RedirectToAction("QuanLyThuongHieu","Admin");
         }
 
+        public ActionResult QuanLyDonHang()
+        {
+            return View(db.DonHangs);
+        }
+
+        public ActionResult QuanLyKhachHang()
+        {
+            return View(db.ACCOUNTs.Where(x => x.ROLENAME == false));
+        }
+
+        public ActionResult QuanLyAdmin()
+        {
+            return View(db.ACCOUNTs.Where(x => x.ROLENAME == true));
+        }
     }
 }
