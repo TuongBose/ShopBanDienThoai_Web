@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +12,10 @@ namespace DoAn_LTW.Models
         public ShoppingCart()
         {
             Items = new List<CartItem>();
+        }
+        public int GetTotalItemCount()
+        {
+            return Items.Sum(i => i.SoLuong);
         }
 
         public void AddToCart(SanPham sanPham, int soLuong)
@@ -30,7 +34,6 @@ namespace DoAn_LTW.Models
                     Gia = sanPham.Gia,
                     SoLuong = soLuong,
                     HinhAnh=sanPham.HinhAnh
-
                 });
             }
         }
