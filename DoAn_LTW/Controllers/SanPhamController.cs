@@ -1,11 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DoAn_LTW.Models;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace DoAn_LTW.Controllers
 {
@@ -290,15 +293,20 @@ namespace DoAn_LTW.Controllers
         }
 
         // Thêm sản phẩm vào giỏ hàng
-        public ActionResult AddToCart(int msp, int soLuong)
+        public ActionResult AddToCart(int msp, int soLuong, int thaotac)
         {
             SanPham sanPham = db.SanPhams.SingleOrDefault(sp => sp.MaSanPham == msp);
             if (sanPham != null)
             {
                 ShoppingCart cart = GetCart();
                 cart.AddToCart(sanPham, soLuong);
+
+                Session["CartItemCount"] = cart.GetTotalItemCount();
             }
+            if(thaotac == 0) 
             return RedirectToAction("TrangChu", "TrangChu");
+                else
+                return RedirectToAction("ViewCart", "SanPham");
         }
 
         // Xem giỏ hàng
@@ -326,6 +334,8 @@ namespace DoAn_LTW.Controllers
                 item.SoLuong = soLuong;
             }
 
+            Session["CartItemCount"] = cart.Items.Sum(i => i.SoLuong);
+
             return RedirectToAction("ViewCart");
         }
 
@@ -339,22 +349,80 @@ namespace DoAn_LTW.Controllers
             {
                 item.SoLuong = soLuong;
             }
+            else if (soLuong == 0 && item != null)
+            {
+                cart.Items.Remove(item);
+            }
+
+            Session["CartItemCount"] = cart.Items.Sum(i => i.SoLuong);
 
             return Json(new
             {
                 success = true,
                 totalPrice = cart.GetTotal(),
-                itemTotal = item?.ThanhTien
+                itemTotal = item?.ThanhTien,
+                cartItemCount = Session["CartItemCount"]
             });
         }
 
-        // Thanh toán
-        public ActionResult Checkout()
+        [HttpGet]
+        public ActionResult DatHang()
         {
             ShoppingCart cart = GetCart();
+            return View(cart);
+        }
 
+        [HttpPost]
+        public ActionResult ThemDonHang(FormCollection Data)
+        {
+            var userid = Data["USERID"];
+            var tongtien = Data["TongTien"];
+            ShoppingCart cart = GetCart();
+
+            bool hasError = false;
+
+            if (String.IsNullOrEmpty(userid))
+            {
+                TempData["Message"] = "Tên kkách hàng không được bỏ trống";
+                hasError = true;
+            }
+
+            if (hasError)
+                return RedirectToAction("DatHang", "SanPham");
+            else
+            {
+                Models.DonHang NewDH = new Models.DonHang
+                {
+                    USERID = int.Parse(userid),
+                    NgayDatHang = DateTime.Now,
+                    TongTien = decimal.Parse(tongtien)
+                };
+                db.DonHangs.InsertOnSubmit(NewDH);
+                db.SubmitChanges();
+
+                foreach (var item in cart.Items)
+                {
+                    Models.ChiTietDonHang CTDH = new Models.ChiTietDonHang
+                    {
+                        MaDonHang = NewDH.MaDonHang,
+                        MaSanPham = item.MaSanPham,
+                        SoLuong = item.SoLuong,
+                        GiaBan = item.Gia
+                    };
+                    db.ChiTietDonHangs.InsertOnSubmit(CTDH);
+                }
+                db.SubmitChanges();
+
+                return RedirectToAction("XacNhanDatHang", "SanPham");
+            }
+        }
+
+        public ActionResult XacNhanDatHang()
+        {
+            Models.ShoppingCart cart = GetCart();
             cart.Clear();
-            return RedirectToAction("TrangChu", "TrangChu");
+            Session["CartItemCount"] = cart.Items.Sum(i => i.SoLuong);
+            return View();
         }
 
         public ActionResult TimKiem(string query)
