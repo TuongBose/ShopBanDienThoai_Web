@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DoAn_LTW.Models;
-using System.Net.Http;
-using Newtonsoft.Json;
 
 namespace DoAn_LTW.Controllers
 {
