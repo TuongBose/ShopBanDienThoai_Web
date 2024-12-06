@@ -1,4 +1,4 @@
-﻿@model DoAn_LTW.Models.SanPham_Feedback
+@model DoAn_LTW.Models.SanPham_Feedback
 
 @{
     DoAn_LTW.Models.ACCOUNT TaiKhoan = Session["Account"] as DoAn_LTW.Models.ACCOUNT;
@@ -101,13 +101,13 @@
             {
                 <div>
                     <!-- Button mua ngay -->
-                    <a href="@Url.Action("MuaNgay", "DienThoai", new { msp = Model.SanPham.MaSanPham })" class="btn btn-primary">
+                    <a href="@Url.Action("AddToCart", "SanPham", new { msp = Model.SanPham.MaSanPham, soluong = 1, thaotac = 1 })" class="btn btn-primary">
                         MUA NGAY
                     </a>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                     <!-- Button thêm vào giỏ hàng -->
-                    <a href="@Url.Action("AddToCart", "SanPham", new { msp = Model.SanPham.MaSanPham, soLuong = 1 })" class="btn btn-success">
+                    <a href="@Url.Action("AddToCart", "SanPham", new { msp = Model.SanPham.MaSanPham, soLuong = 1, thaotac = 0 })" class="btn btn-success">
                         THÊM VÀO GIỎ HÀNG
                     </a>
                 </div>
