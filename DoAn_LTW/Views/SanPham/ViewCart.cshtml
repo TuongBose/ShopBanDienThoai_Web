@@ -1,4 +1,4 @@
-﻿@model DoAn_LTW.Models.ShoppingCart
+@model DoAn_LTW.Models.ShoppingCart
 
 @{
     ViewBag.Title = "Gio Hang";
@@ -77,8 +77,10 @@
 
     /* Cart Summary Styling */
     .cart-summary {
-        margin-top: 20px;
-        text-align: right;
+        display: flex; /* Sử dụng flexbox */
+        justify-content: center; /* Căn giữa theo chiều ngang */
+        align-items: center; /* Căn giữa theo chiều dọc */
+        flex-direction: column;
     }
 
         .cart-summary h3 {
@@ -121,7 +123,21 @@
             },
             success: function (response) {
                 if (response.success) {
-                    location.reload();
+                    // Cập nhật tổng số lượng sản phẩm trong giỏ hàng
+                    $('#cartItemCount').text(response.cartItemCount);
+
+                    // Cập nhật tổng tiền giỏ hàng
+                    $('#totalPrice').text(response.totalPrice.toLocaleString() + ' VNĐ');
+
+                    // Cập nhật tổng tiền của sản phẩm vừa thay đổi
+                    $('#itemTotal_' + maSanPham).text(response.itemTotal.toLocaleString() + ' VNĐ');
+
+                    // Nếu giỏ hàng trống, ẩn nút "Đặt hàng"
+                    if (response.cartItemCount === 0) {
+                        $('.btn-thanh-toan').hide();
+                    } else {
+                        $('.btn-thanh-toan').show();
+                    }
                 } else {
                     alert(response.message || "Có lỗi xảy ra");
                 }
@@ -164,7 +180,7 @@
                         }
                     </td>
                     <td>@item.Gia</td>
-                    <td>@item.ThanhTien</td>
+                    <td id="itemTotal_@item.MaSanPham">@item.ThanhTien.ToString("N0") VNĐ</td>
                     <td>
                         @Html.ActionLink("Xóa", "RemoveFromCart", new { msp = item.MaSanPham }, new { @class = "btn btn-danger btn-sm" })
                     </td>
@@ -174,8 +190,8 @@
     </table>
 
     <div class="cart-summary">
-        <h3 class="text-md-center">Tổng cộng: @Model.GetTotal() đ <a href="@Url.Action("Checkout")" class="btn btn-primary btn-thanh-toan">Thanh toán</a></h3> 
-        
+        <h3 class="text-md-center" id="totalPrice">Tổng cộng: @Model.GetTotal().ToString("N0") VNĐ</h3>
+        <a href="@Url.Action("DatHang", "SanPham")" class="btn btn-primary" style="display:@(Model.Items.Count > 0 ? "inline-block" : "none");">Đặt hàng</a>
     </div>
 }
 else
