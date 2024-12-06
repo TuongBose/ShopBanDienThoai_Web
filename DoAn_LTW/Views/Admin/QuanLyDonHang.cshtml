@@ -1,0 +1,87 @@
+﻿@model IEnumerable<DoAn_LTW.Models.DonHang> 
+@{
+    ViewBag.Title = "QuanLyDonHang";
+    Layout = "~/Views/Share/LayoutAdmin.cshtml";
+}
+
+<style>
+    /* Styling for the product management table */
+    .table {
+        margin-top: 20px;
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+        .table th, .table td {
+            text-align: left;
+            padding: 10px;
+        }
+
+        .table thead th {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .table-striped tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .img-thumbnail {
+        display: block;
+        margin: auto;
+        width: 100px;
+        height: 100px;
+    }
+
+    .text-right {
+        margin-bottom: 10px;
+    }
+
+    .btn-sm {
+        margin-right: 5px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+</style>
+
+<h2 class="text-center mt-4">Quản Lý Đơn Hàng</h2>
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã đơn hàng</th>
+            <th>UserID</th>
+            <th>Ngày đặt hàng</th>
+            <th>Tổng tiền</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaDonHang</td>
+                <td>@item.USERID</td>
+                <td>@DateTime.Parse(item.NgayDatHang.ToString()).ToShortDateString()</td>
+                <td>@item.TongTien</td>
+                <td>
+                    <a href="#" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
