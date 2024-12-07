@@ -47,7 +47,7 @@ namespace DoAn_LTW.Models
             }
         }
 
-        public decimal GetTotal()
+        public int GetTotal()
         {
             return Items.Sum(item => item.ThanhTien);
         }

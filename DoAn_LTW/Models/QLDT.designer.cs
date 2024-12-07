@@ -552,7 +552,7 @@ namespace DoAn_LTW.Models
 		
 		private System.Nullable<int> _SoLuong;
 		
-		private System.Nullable<decimal> _GiaBan;
+		private System.Nullable<int> _GiaBan;
 		
 		private EntityRef<DonHang> _DonHang;
 		
@@ -568,7 +568,7 @@ namespace DoAn_LTW.Models
     partial void OnMaSanPhamChanged();
     partial void OnSoLuongChanging(System.Nullable<int> value);
     partial void OnSoLuongChanged();
-    partial void OnGiaBanChanging(System.Nullable<decimal> value);
+    partial void OnGiaBanChanging(System.Nullable<int> value);
     partial void OnGiaBanChanged();
     #endregion
 		
@@ -647,8 +647,8 @@ namespace DoAn_LTW.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaBan", DbType="Decimal(10,2)")]
-		public System.Nullable<decimal> GiaBan
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaBan", DbType="Int")]
+		public System.Nullable<int> GiaBan
 		{
 			get
 			{
@@ -768,7 +768,7 @@ namespace DoAn_LTW.Models
 		
 		private System.Nullable<System.DateTime> _NgayDatHang;
 		
-		private System.Nullable<decimal> _TongTien;
+		private System.Nullable<int> _TongTien;
 		
 		private EntitySet<ChiTietDonHang> _ChiTietDonHangs;
 		
@@ -784,7 +784,7 @@ namespace DoAn_LTW.Models
     partial void OnUSERIDChanged();
     partial void OnNgayDatHangChanging(System.Nullable<System.DateTime> value);
     partial void OnNgayDatHangChanged();
-    partial void OnTongTienChanging(System.Nullable<decimal> value);
+    partial void OnTongTienChanging(System.Nullable<int> value);
     partial void OnTongTienChanged();
     #endregion
 		
@@ -859,8 +859,8 @@ namespace DoAn_LTW.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongTien", DbType="Decimal(10,2)")]
-		public System.Nullable<decimal> TongTien
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongTien", DbType="Int")]
+		public System.Nullable<int> TongTien
 		{
 			get
 			{
@@ -1371,7 +1371,7 @@ namespace DoAn_LTW.Models
 		
 		private string _TenSanPham;
 		
-		private decimal _Gia;
+		private int _Gia;
 		
 		private int _MaThuongHieu;
 		
@@ -1399,7 +1399,7 @@ namespace DoAn_LTW.Models
     partial void OnMaSanPhamChanged();
     partial void OnTenSanPhamChanging(string value);
     partial void OnTenSanPhamChanged();
-    partial void OnGiaChanging(decimal value);
+    partial void OnGiaChanging(int value);
     partial void OnGiaChanged();
     partial void OnMaThuongHieuChanging(int value);
     partial void OnMaThuongHieuChanged();
@@ -1462,8 +1462,8 @@ namespace DoAn_LTW.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gia", DbType="Decimal(10,2) NOT NULL")]
-		public decimal Gia
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gia", DbType="Int NOT NULL")]
+		public int Gia
 		{
 			get
 			{

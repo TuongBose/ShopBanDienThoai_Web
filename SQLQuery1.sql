@@ -23,7 +23,7 @@ CREATE TABLE SanPham
 (
     MaSanPham INT NOT NULL PRIMARY KEY IDENTITY(1,1),
     TenSanPham NVARCHAR(255) NOT NULL,
-    Gia DECIMAL(10, 2) NOT NULL,
+    Gia INT NOT NULL,
 	MaThuongHieu INT NOT NULL,
     MoTa  NVARCHAR(MAX),
     HinhAnh NVARCHAR(255),
@@ -49,7 +49,7 @@ CREATE TABLE DonHang (
     MaDonHang INT PRIMARY KEY IDENTITY(1,1),
     USERID INT,
     NgayDatHang DATE,
-    TongTien DECIMAL(10, 2),
+    TongTien INT,
     CONSTRAINT FK_ACCOUNT FOREIGN KEY (USERID) REFERENCES ACCOUNT(USERID)
 );
 
@@ -57,7 +57,7 @@ CREATE TABLE ChiTietDonHang (
     MaDonHang INT NOT NULL,
     MaSanPham INT NOT NULL,
     SoLuong INT,
-    GiaBan DECIMAL(10, 2),
+    GiaBan INT,
     CONSTRAINT PK_CTDH PRIMARY KEY (MaDonHang, MaSanPham),
     CONSTRAINT FK_DonHang FOREIGN KEY (MaDonHang) REFERENCES DonHang(MaDonHang),
     CONSTRAINT FK_SanPham FOREIGN KEY (MaSanPham) REFERENCES SanPham(MaSanPham)

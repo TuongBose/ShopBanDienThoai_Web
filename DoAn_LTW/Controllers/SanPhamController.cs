@@ -393,7 +393,7 @@ namespace DoAn_LTW.Controllers
                 {
                     USERID = int.Parse(userid),
                     NgayDatHang = DateTime.Now,
-                    TongTien = decimal.Parse(tongtien)
+                    TongTien = int.Parse(tongtien)
                 };
                 db.DonHangs.InsertOnSubmit(NewDH);
                 db.SubmitChanges();

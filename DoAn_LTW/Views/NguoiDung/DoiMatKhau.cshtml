@@ -62,7 +62,7 @@
                         <td>
                             @Html.TextBoxFor(model => TaiKhoan.PASS, new
                        {
-                           @style = "width: 375px; height: 50px; border: 1px solid #ccc; border-radius: 4px; padding: 5px;",
+                            @class = "form-control",
                            @disabled = "disabled"
                        })
                         </td>
@@ -70,7 +70,7 @@
                             <div>
                                 @Html.TextBox("NewPass", "", new
                                 {
-                                @style = "width: 400px; height: 50px; border: 1px solid #ccc; border-radius: 4px; padding: 5px;",
+                                @class = "form-control",
                                 @placeholder = "Nhập mật khẩu mới"
                                 }) @ViewData["LoiNewPass"]
                             </div>
@@ -79,7 +79,7 @@
                             <div>
                                 @Html.TextBox("NewPassConfirm", "", new
                            {
-                               @style = "width: 390px; height: 50px; border: 1px solid #ccc; border-radius: 4px; padding: 5px;",
+                               @class="form-control",
                                @placeholder = "Nhập lại mật khẩu mới"
                            }) @ViewData["LoiNewPassConfirm"]
                     </div>
