@@ -52,14 +52,17 @@
 </style>
 
 <h2 class="text-center mt-4">Quản Lý Admin</h2>
-@if (TempData["ErrorMessage"] != null)
+@if (TempData["Message"] != null)
 {
     <div class="alert alert-danger">
-        @TempData["ErrorMessage"]
+        @TempData["Message"]
     </div>
 }
+
 <p class="text-right">
-    <a href="@Url.Action("Create", "Admin")" class="btn btn-primary">Thêm mới Admin</a>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+        Thêm mới Admin
+    </button>
 </p>
 
 <table class="table table-bordered table-striped table-hover">
@@ -89,3 +92,76 @@
         }
     </tbody>
 </table>
+
+<!-- Modal Thêm mới -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Thêm mới hóa đơn phòng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form Thêm mới -->
+                @using (Html.BeginForm("ThemAdmin", "Admin", FormMethod.Post, new { @class = "form" }))
+                {
+                    <label class="form-label">UserName</label>
+                    <div>
+                        @Html.TextBox("UserName", "", new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập UserName"
+                   })
+                    </div>
+
+                    <label class="form-label">Mật khẩu</label>
+                    <div>
+                        @Html.TextBox("Password", "", new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập mật khẩu"
+                   })
+                    </div>
+
+                    <label class="form-label">Email</label>
+                    <div>
+                        @Html.TextBox("Email", "", new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập Email"
+                   })
+                    </div>
+
+                    <label class="form-label">Họ tên</label>
+                    <div>
+                        @Html.TextBox("FullName", "", new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập họ tên"
+                   })
+                    </div>
+
+                    <label class="form-label">Địa chỉ</label>
+                    <div>
+                        @Html.TextBox("DiaChi", "", new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập địa chỉ"
+                   })
+                    </div>
+
+                    <label class="form-label">Số điện thoại</label>
+                    <div>
+                        @Html.TextBox("SDT", "", new
+                   {
+                       @class = "form-control",
+                       @placeholder = "Nhập số điện thoại"
+                   })
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

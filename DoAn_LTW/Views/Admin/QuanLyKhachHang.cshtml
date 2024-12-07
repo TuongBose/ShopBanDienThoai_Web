@@ -52,10 +52,10 @@
 </style>
 
 <h2 class="text-center mt-4">Quản Lý khách hàng</h2>
-@if (TempData["ErrorMessage"] != null)
+@if (TempData["Message"] != null)
 {
     <div class="alert alert-danger">
-        @TempData["ErrorMessage"]
+        @TempData["Message"]
     </div>
 }
 
@@ -69,6 +69,7 @@
             <th>FULLNAME</th>
             <th>ĐỊA CHỈ</th>
             <th>SỐ ĐIỆN THOẠI</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -82,6 +83,9 @@
                 <td>@item.FULLNAME</td>
                 <td>@item.DIACHI</td>
                 <td>@item.SODIENTHOAI</td>
+                <td>
+                    <a href="@Url.Action("SuaKhachHang", "Admin", new { @userid = item.USERID }, null)" class="btn btn-primary">Sửa</a>
+                </td>
             </tr>
         }
     </tbody>

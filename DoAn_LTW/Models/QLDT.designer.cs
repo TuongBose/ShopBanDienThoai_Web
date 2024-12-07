@@ -54,7 +54,7 @@ namespace DoAn_LTW.Models
     #endregion
 		
 		public QLDTDataContext():
-			base(global::System.Configuration.ConfigurationManager.ConnectionStrings["WEBBANDIENTHOAIConnectionString"].ConnectionString)
+			base(global::System.Configuration.ConfigurationManager.ConnectionStrings["WEBBANDIENTHOAIConnectionString1"].ConnectionString)
 		{
 			OnCreated();
 		}

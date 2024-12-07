@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DoAn_LTW.Models.DonHang> 
+﻿﻿@model IEnumerable<DoAn_LTW.Models.DonHang>
 @{
     ViewBag.Title = "QuanLyDonHang";
     Layout = "~/Views/Share/LayoutAdmin.cshtml";
@@ -52,10 +52,10 @@
 </style>
 
 <h2 class="text-center mt-4">Quản Lý Đơn Hàng</h2>
-@if (TempData["ErrorMessage"] != null)
+@if (TempData["Message"] != null)
 {
     <div class="alert alert-danger">
-        @TempData["ErrorMessage"]
+        @TempData["Message"]
     </div>
 }
 
@@ -78,10 +78,9 @@
                 <td>@DateTime.Parse(item.NgayDatHang.ToString()).ToShortDateString()</td>
                 <td>@item.TongTien</td>
                 <td>
-                    <a href="#" class="btn btn-danger">Xóa</a>
+                    <a href="@Url.Action("XoaDonHang", "Admin", new { @idDH = item.MaDonHang }, null)" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-

@@ -86,7 +86,7 @@ namespace DoAn_LTW.Controllers
         //    return RedirectToAction("QuanLySanPham");
         //}
         //hien thi danh sach cac thuong hieu
-        
+
 
 
         public ActionResult QuanLyLoaiSanPham()
@@ -565,7 +565,7 @@ namespace DoAn_LTW.Controllers
                     TempData["SuccessMessage"] = "Xóa thương hiệu thành công!";
                 }
             }
-            return RedirectToAction("QuanLyThuongHieu","Admin");
+            return RedirectToAction("QuanLyThuongHieu", "Admin");
         }
 
         public ActionResult QuanLyDonHang()
@@ -573,14 +573,192 @@ namespace DoAn_LTW.Controllers
             return View(db.DonHangs);
         }
 
+        public ActionResult XoaDonHang(int idDH)
+        {
+            while(true)
+            {
+                Models.ChiTietDonHang hasCTDH = db.ChiTietDonHangs.FirstOrDefault(x => x.MaDonHang == idDH);
+                if (hasCTDH != null)
+                {
+                    db.ChiTietDonHangs.DeleteOnSubmit(hasCTDH);
+                    db.SubmitChanges();
+                }
+                else break;
+            }
+
+            Models.DonHang hasDH = db.DonHangs.FirstOrDefault(x => x.MaDonHang == idDH);
+            if (hasDH != null)
+            {
+                db.DonHangs.DeleteOnSubmit(hasDH);
+                db.SubmitChanges();
+                TempData["Message"] = "Xoa thành công";
+                return RedirectToAction("QuanLyDonHang", "Admin");
+            }
+            else
+            {
+                TempData["Message"] = "Xoa không thành công";
+                return RedirectToAction("QuanLyDonHang", "Admin");
+            }
+        }
+
         public ActionResult QuanLyKhachHang()
         {
             return View(db.ACCOUNTs.Where(x => x.ROLENAME == false));
         }
 
+        [HttpGet]
+        public ActionResult SuaKhachHang(int userid)
+        {
+            return View(db.ACCOUNTs.FirstOrDefault(x => x.USERID == userid));
+        }
+
+        [HttpPost]
+        public ActionResult SuaKhachHang(FormCollection Data)
+        {
+            var userid = Data["ID"];
+            var username = Data["UserName"];
+            var password = Data["Password"];
+            var email = Data["Email"];
+            var fullname = Data["FullName"];
+            var diachi = Data["DiaChi"];
+            var sdt = Data["SDT"];
+
+            bool hasError = false;
+
+            if (String.IsNullOrEmpty(username))
+            {
+                TempData["Message"] = "UserName không được bỏ trống";
+                hasError = true;
+            }
+            if (String.IsNullOrEmpty(password))
+            {
+                TempData["Message"] = "Mật khẩu không được bỏ trống";
+                hasError = true;
+            }
+            if (String.IsNullOrEmpty(email))
+            {
+                TempData["Message"] = "Email không được bỏ trống";
+                hasError = true;
+            }
+            if (String.IsNullOrEmpty(fullname))
+            {
+                TempData["Message"] = "Họ tên không được bỏ trống";
+                hasError = true;
+            }
+            if (String.IsNullOrEmpty(diachi))
+            {
+                TempData["Message"] = "Địa chỉ không được bỏ trống";
+                hasError = true;
+            }
+            if (String.IsNullOrEmpty(sdt))
+            {
+                TempData["Message"] = "Số điện thoại không được bỏ trống";
+                hasError = true;
+            }
+
+            if (hasError)
+                return RedirectToAction("QuanLyKhachHang", "Admin");
+            else
+            {
+                Models.ACCOUNT hasAC = db.ACCOUNTs.FirstOrDefault(x => x.USERNAME == username);
+                if (hasAC != null)
+                {
+                    hasAC.PASS = password;
+                    hasAC.EMAIL = email;
+                    hasAC.FULLNAME = fullname;
+                    hasAC.DIACHI = diachi;
+                    hasAC.SODIENTHOAI = sdt;
+
+                    db.SubmitChanges();
+                    TempData["Message"] = "Sửa thành công";
+                    return RedirectToAction("QuanLyKhachHang", "Admin");
+                }
+                else
+                {
+                    TempData["Message"] = "Chỉnh sửa không thành công";
+                    return RedirectToAction("QuanLyKhachHang", "Admin");
+                }
+            }
+        }
+
+        [HttpGet]
         public ActionResult QuanLyAdmin()
         {
             return View(db.ACCOUNTs.Where(x => x.ROLENAME == true));
+        }
+
+        [HttpPost]
+        public ActionResult ThemAdmin(FormCollection Data)
+        {
+            var username = Data["UserName"];
+            var password = Data["Password"];
+            var email = Data["Email"];
+            var fullname = Data["FullName"];
+            var diachi = Data["DiaChi"];
+            var sdt = Data["SDT"];
+
+            bool hasError = false;
+
+            if (String.IsNullOrEmpty(username))
+            {
+                TempData["Message"] = "UserName không được bỏ trống";
+                hasError = true;
+            }
+            if (String.IsNullOrEmpty(password))
+            {
+                TempData["Message"] = "Mật khẩu không được bỏ trống";
+                hasError = true;
+            }
+            if (String.IsNullOrEmpty(email))
+            {
+                TempData["Message"] = "Email không được bỏ trống";
+                hasError = true;
+            }
+            if (String.IsNullOrEmpty(fullname))
+            {
+                TempData["Message"] = "Họ tên không được bỏ trống";
+                hasError = true;
+            }
+            if (String.IsNullOrEmpty(diachi))
+            {
+                TempData["Message"] = "Địa chỉ không được bỏ trống";
+                hasError = true;
+            }
+            if (String.IsNullOrEmpty(sdt))
+            {
+                TempData["Message"] = "Số điện thoại không được bỏ trống";
+                hasError = true;
+            }
+
+            if (hasError)
+                return RedirectToAction("QuanLyAdmin", "Admin");
+            else
+            {
+                Models.ACCOUNT hasAC = db.ACCOUNTs.FirstOrDefault(x => x.USERNAME == username);
+                if (hasAC == null)
+                {
+                    Models.ACCOUNT NewAC = new Models.ACCOUNT
+                    {
+                        USERNAME = username,
+                        PASS = password,
+                        EMAIL = email,
+                        FULLNAME = fullname,
+                        DIACHI = diachi,
+                        SODIENTHOAI = sdt,
+                        ROLENAME = true
+                    };
+
+                    db.ACCOUNTs.InsertOnSubmit(NewAC);
+                    db.SubmitChanges();
+                    TempData["Message"] = "Thêm thành công";
+                    return RedirectToAction("QuanLyAdmin", "Admin");
+                }
+                else
+                {
+                    TempData["Message"] = "UserName này đã tồn tại";
+                    return RedirectToAction("QuanLyAdmin", "Admin");
+                }
+            }
         }
     }
 }

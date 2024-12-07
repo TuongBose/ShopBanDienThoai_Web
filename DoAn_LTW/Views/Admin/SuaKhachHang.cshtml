@@ -1,0 +1,120 @@
+﻿@model DoAn_LTW.Models.ACCOUNT
+@{
+    ViewBag.Title = "SuaKhachHang";
+    Layout = "~/Views/Share/LayoutAdmin.cshtml";
+}
+
+<style>
+    /* Styling for the product management table */
+    .table {
+        margin-top: 20px;
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+        .table th, .table td {
+            text-align: left;
+            padding: 10px;
+        }
+
+        .table thead th {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .table-striped tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .img-thumbnail {
+        display: block;
+        margin: auto;
+        width: 100px;
+        height: 100px;
+    }
+
+    .text-right {
+        margin-bottom: 10px;
+    }
+
+    .btn-sm {
+        margin-right: 5px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+</style>
+
+<h2 class="text-center mt-4">Quản Lý khách hàng</h2>
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Message"]
+    </div>
+}
+
+@using (Html.BeginForm("SuaKhachHang", "Admin", FormMethod.Post, new { @class = "form" }))
+{
+    @Html.Hidden("ID",Model.USERID)
+    <label class="form-label">UserName</label>
+    <div>
+        @Html.TextBox("UserName", Model.USERNAME, new
+   {
+       @class = "form-control",
+       @readonly = "readonly"
+        })
+    </div>
+
+    <label class="form-label">Mật khẩu</label>
+    <div>
+        @Html.TextBox("Password", Model.PASS, new
+   {
+       @class = "form-control",
+       @placeholder = "Nhập mật khẩu"
+   })
+    </div>
+
+    <label class="form-label">Email</label>
+    <div>
+        @Html.TextBox("Email", Model.EMAIL, new
+   {
+       @class = "form-control",
+       @placeholder = "Nhập Email"
+   })
+    </div>
+
+    <label class="form-label">Họ tên</label>
+    <div>
+        @Html.TextBox("FullName", Model.FULLNAME, new
+   {
+       @class = "form-control",
+       @placeholder = "Nhập họ tên"
+   })
+    </div>
+
+    <label class="form-label">Địa chỉ</label>
+    <div>
+        @Html.TextBox("DiaChi", Model.DIACHI, new
+   {
+       @class = "form-control",
+       @placeholder = "Nhập địa chỉ"
+   })
+    </div>
+
+    <label class="form-label">Số điện thoại</label>
+    <div>
+        @Html.TextBox("SDT", Model.SODIENTHOAI, new
+   {
+       @class = "form-control",
+       @placeholder = "Nhập số điện thoại"
+   })
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Lưu</button>
+}
