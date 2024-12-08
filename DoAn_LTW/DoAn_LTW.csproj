@@ -270,6 +270,10 @@
     <Content Include="Views\Admin\QuanLyKhachHang.cshtml" />
     <Content Include="Views\Admin\QuanLyDonHang.cshtml" />
     <Content Include="Views\Admin\SuaKhachHang.cshtml" />
+    <Content Include="Views\SanPham\XacNhanDatHang.cshtml" />
+    <Content Include="Views\SanPham\DatHang.cshtml" />
+    <Content Include="Views\SanPham\PhuongThucThanhToan.cshtml" />
+    <Content Include="Views\Admin\ChiTietDonHang.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

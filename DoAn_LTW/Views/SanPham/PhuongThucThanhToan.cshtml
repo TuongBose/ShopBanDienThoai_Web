@@ -1,0 +1,92 @@
+﻿@model DoAn_LTW.Models.ShoppingCart
+
+@{
+    ViewBag.Title = "Phương thức thanh toán";
+    Layout = "~/Views/Share/LayoutUser.cshtml";
+}
+
+<style>
+    .table-bordered th, .table-bordered td {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .table-primary {
+        background-color: #e3f2fd;
+    }
+
+    .table-success {
+        background-color: #d4edda;
+        font-weight: bold;
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="text-center">Phương Thức Thanh Toán</h2>
+    <hr />
+
+    <!-- Hiển thị thông tin giỏ hàng -->
+    <div class="row">
+        <div class="col-lg-8">
+            <h4 class="mb-4">Sản phẩm trong giỏ hàng</h4>
+            <table class="table table-bordered">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Hình ảnh</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                        <th>Tổng cộng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>
+                                <img src="~/Images/HinhAnhSP/@item.HinhAnh" alt="Sản phẩm" width="80" height="80" />
+                            </td>
+                            <td>@item.TenSanPham</td>
+                            <td>@item.SoLuong</td>
+                            <td>@string.Format("{0:0,0} ₫", item.Gia)</td>
+                            <td>@string.Format("{0:0,0} ₫", item.SoLuong * item.Gia)</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr class="table-success">
+                        <td colspan="4" class="text-end"><strong>Tổng tiền:</strong></td>
+                        <td>@string.Format("{0:0,0} ₫", Model.GetTotal())</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <!-- Lựa chọn phương thức thanh toán -->
+        <div class="col-lg-4">
+            <h4 class="mb-4">Chọn Phương Thức Thanh Toán</h4>
+            <form asp-action="XacNhanDatHang" asp-controller="Order" method="post">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="PhuongThucThanhToan" value="COD" id="cod" checked>
+                    <label class="form-check-label" for="cod">
+                        Thanh toán khi nhận hàng (COD)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="PhuongThucThanhToan" value="ChuyenKhoan" id="chuyen-khoan" required>
+                    <label class="form-check-label" for="chuyen-khoan">
+                        Chuyển khoản ngân hàng
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="PhuongThucThanhToan" value="TheTinDung" id="the-tin-dung" required>
+                    <label class="form-check-label" for="the-tin-dung">
+                        Thẻ tín dụng
+                    </label>
+                </div>
+
+                <a href="@Url.Action("XacNhanDatHang", "SanPham")" type="submit" class="btn btn-primary mt-4 w-100">Xác nhận thanh toán</a>
+            </form>
+        </div>
+    </div>
+</div>

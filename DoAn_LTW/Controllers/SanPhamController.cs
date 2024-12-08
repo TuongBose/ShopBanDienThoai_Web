@@ -411,7 +411,7 @@ namespace DoAn_LTW.Controllers
                 }
                 db.SubmitChanges();
 
-                return RedirectToAction("XacNhanDatHang", "SanPham");
+                return RedirectToAction("PhuongThucThanhToan", "SanPham");
             }
         }
 
@@ -421,6 +421,12 @@ namespace DoAn_LTW.Controllers
             cart.Clear();
             Session["CartItemCount"] = cart.Items.Sum(i => i.SoLuong);
             return View();
+        }
+
+        public ActionResult PhuongThucThanhToan()
+        {
+            Models.ShoppingCart cart = GetCart();
+            return View(cart);
         }
 
         public ActionResult TimKiem(string query)

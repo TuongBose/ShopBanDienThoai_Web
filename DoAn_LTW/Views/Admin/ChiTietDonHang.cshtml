@@ -1,0 +1,83 @@
+﻿﻿@model IEnumerable<DoAn_LTW.Models.ChiTietDonHang>
+@{
+    ViewBag.Title = "ChiTietDonHang";
+    Layout = "~/Views/Share/LayoutAdmin.cshtml";
+}
+
+<style>
+    /* Styling for the product management table */
+    .table {
+        margin-top: 20px;
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+        .table th, .table td {
+            text-align: left;
+            padding: 10px;
+        }
+
+        .table thead th {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .table-striped tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .img-thumbnail {
+        display: block;
+        margin: auto;
+        width: 100px;
+        height: 100px;
+    }
+
+    .text-right {
+        margin-bottom: 10px;
+    }
+
+    .btn-sm {
+        margin-right: 5px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+</style>
+
+<h2 class="text-center mt-4">Chi tiết Đơn Hàng</h2>
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Message"]
+    </div>
+}
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã đơn hàng</th>
+            <th>Mã sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Tổng tiền</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaDonHang</td>
+                <td>@item.MaSanPham</td>
+                <td>@item.SoLuong</td>
+                <td>@(item.GiaBan * item.SoLuong)</td>
+            </tr>
+        }
+    </tbody>
+</table>

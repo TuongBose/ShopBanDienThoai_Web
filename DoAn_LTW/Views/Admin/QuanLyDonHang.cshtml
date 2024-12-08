@@ -78,6 +78,7 @@
                 <td>@DateTime.Parse(item.NgayDatHang.ToString()).ToShortDateString()</td>
                 <td>@item.TongTien</td>
                 <td>
+                    <a href="@Url.Action("ChiTietDonHang", "Admin", new { @madonhang = item.MaDonHang }, null)" class="btn btn-primary">Chi Tiết</a>
                     <a href="@Url.Action("XoaDonHang", "Admin", new { @idDH = item.MaDonHang }, null)" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>

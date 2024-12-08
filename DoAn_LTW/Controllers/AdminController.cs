@@ -601,6 +601,11 @@ namespace DoAn_LTW.Controllers
             }
         }
 
+        public ActionResult ChiTietDonHang(int madonhang)
+        {
+            return View(db.ChiTietDonHangs.Where(x => x.MaDonHang == madonhang));
+        }
+
         public ActionResult QuanLyKhachHang()
         {
             return View(db.ACCOUNTs.Where(x => x.ROLENAME == false));
