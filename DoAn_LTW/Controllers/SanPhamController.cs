@@ -408,6 +408,9 @@ namespace DoAn_LTW.Controllers
                         GiaBan = item.Gia
                     };
                     db.ChiTietDonHangs.InsertOnSubmit(CTDH);
+
+                    Models.SanPham SP = db.SanPhams.FirstOrDefault(x => x.MaSanPham == item.MaSanPham);
+                    SP.SoLuongTonKho = SP.SoLuongTonKho - item.SoLuong;
                 }
                 db.SubmitChanges();
 
